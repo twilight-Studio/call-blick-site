@@ -1,230 +1,237 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Play, Zap } from "lucide-react";
-import WaveformBg from "@/components/WaveformBg";
-import StatCounter from "@/components/StatCounter";
+import { ArrowRight } from "lucide-react";
 
-const stats = [
-  { value: "99.4%", label: "Accuracy" },
-  { value: "24/7", label: "Uptime" },
-  { value: "10x", label: "Faster Reviews" },
-];
+/* ── Circular equalizer SVG ── */
+function EqOrb() {
+  const bars = 48;
+  const cx = 260;
+  const cy = 260;
+  const innerR = 90;
+  const outerR = 200;
+
+  const barEls = Array.from({ length: bars }).map((_, i) => {
+    const angle = (i / bars) * 2 * Math.PI - Math.PI / 2;
+    const h = Math.round(18 + Math.sin(i * 0.52) * 30 + Math.sin(i * 0.19) * 20);
+    const x1 = cx + Math.cos(angle) * innerR;
+    const y1 = cy + Math.sin(angle) * innerR;
+    const x2 = cx + Math.cos(angle) * (innerR + h);
+    const y2 = cy + Math.sin(angle) * (innerR + h);
+    const delay = ((i * 0.18) % 3).toFixed(2);
+    const dur = (1.8 + (i % 5) * 0.28).toFixed(2);
+    return { x1, y1, x2, y2, delay, dur, i };
+  });
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      {/* Outer halo rings */}
+      <svg
+        viewBox="0 0 520 520"
+        className="absolute inset-0 w-full h-full animate-spin-slow"
+        style={{ opacity: 0.18 }}
+      >
+        <circle cx="260" cy="260" r="240" fill="none" stroke="#2C8FFF" strokeWidth="0.5" strokeDasharray="4 10" />
+        <circle cx="260" cy="260" r="220" fill="none" stroke="#2C8FFF" strokeWidth="0.3" />
+      </svg>
+
+      <svg
+        viewBox="0 0 520 520"
+        className="absolute inset-0 w-full h-full animate-spin-slow-reverse"
+        style={{ opacity: 0.12 }}
+      >
+        <circle cx="260" cy="260" r="255" fill="none" stroke="#2C8FFF" strokeWidth="0.4" strokeDasharray="2 18" />
+      </svg>
+
+      {/* Main equalizer SVG */}
+      <svg viewBox="0 0 520 520" className="relative w-full h-full" style={{ filter: "drop-shadow(0 0 32px rgba(44,143,255,0.3))" }}>
+        <defs>
+          <radialGradient id="orb-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#2C8FFF" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#020912" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="core-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#0D2A4A" />
+            <stop offset="100%" stopColor="#020912" />
+          </radialGradient>
+        </defs>
+
+        {/* Ambient glow */}
+        <circle cx="260" cy="260" r="260" fill="url(#orb-glow)" />
+
+        {/* Eq bars */}
+        {barEls.map(({ x1, y1, x2, y2, delay, dur, i }) => (
+          <line
+            key={i}
+            x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke={i % 6 === 0 ? "#EEF4FF" : "#2C8FFF"}
+            strokeWidth={i % 6 === 0 ? "2" : "1.5"}
+            strokeLinecap="round"
+            style={{ opacity: 0.7 + (i % 4) * 0.07 }}
+          >
+            <animateTransform
+              attributeName="transform"
+              type="scale"
+              from="1"
+              to="0.55"
+              dur={`${dur}s`}
+              begin={`${delay}s`}
+              repeatCount="indefinite"
+              additive="sum"
+              attributeType="XML"
+            />
+          </line>
+        ))}
+
+        {/* Inner circle */}
+        <circle cx="260" cy="260" r="88" fill="url(#core-grad)" stroke="rgba(44,143,255,0.3)" strokeWidth="1" />
+
+        {/* Center phone icon path */}
+        <g transform="translate(238,234)" fill="none">
+          <rect x="4" y="0" width="28" height="44" rx="5" stroke="#2C8FFF" strokeWidth="1.8" />
+          <rect x="10" y="4" width="16" height="28" rx="2" fill="rgba(44,143,255,0.15)" />
+          <circle cx="18" cy="38" r="3" fill="#2C8FFF" opacity="0.6" />
+          <line x1="8" y1="4" x2="8" y2="40" stroke="rgba(44,143,255,0.2)" strokeWidth="0.8" />
+        </g>
+
+        {/* Floating data dots */}
+        {[
+          { cx: 180, cy: 140, label: "99.4%", sub: "accuracy" },
+          { cx: 360, cy: 120, label: "10×", sub: "faster" },
+          { cx: 390, cy: 370, label: "100%", sub: "coverage" },
+        ].map((dot, i) => (
+          <g key={i}>
+            <circle cx={dot.cx} cy={dot.cy} r="28" fill="rgba(10,25,49,0.95)" stroke="rgba(44,143,255,0.35)" strokeWidth="1" />
+            <text x={dot.cx} y={dot.cy - 4} textAnchor="middle" fill="#EEF4FF" fontSize="10" fontWeight="800" fontFamily="system-ui">{dot.label}</text>
+            <text x={dot.cx} y={dot.cy + 10} textAnchor="middle" fill="#2C8FFF" fontSize="7" fontWeight="600" fontFamily="system-ui">{dot.sub}</text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-20">
-      {/* Radial glow */}
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background gradient — off-center, not centered */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(44,143,255,0.12) 0%, transparent 70%)",
+            "radial-gradient(ellipse 60% 80% at 70% 50%, rgba(44,143,255,0.10) 0%, transparent 65%)",
         }}
       />
 
-      {/* Waveform background */}
-      <WaveformBg />
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-28 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
-        {/* Eyebrow pill */}
-        <div
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
-          style={{
-            background: "rgba(44,143,255,0.1)",
-            border: "1px solid rgba(44,143,255,0.25)",
-          }}
-        >
-          <Zap size={12} color="#2C8FFF" />
-          <span
-            className="text-[10px] font-black uppercase tracking-[0.14em]"
+        {/* LEFT — editorial copy, not centred */}
+        <div>
+          <p
+            className="text-xs font-black uppercase tracking-[0.2em] mb-8"
             style={{ color: "#2C8FFF" }}
           >
-            AI-Powered Call Intelligence
-          </span>
-        </div>
+            Call Intelligence Platform
+          </p>
 
-        {/* Headline */}
-        <h1
-          className="text-[clamp(48px,8vw,80px)] font-black leading-[1.05] tracking-[-0.04em] mb-6"
-          style={{ color: "#EEF4FF" }}
-        >
-          Intelligence
-          <br />
-          at every{" "}
-          <span style={{ color: "#2C8FFF" }}>conversation.</span>
-        </h1>
-
-        {/* Sub-copy */}
-        <p
-          className="text-lg font-medium max-w-2xl mx-auto mb-10 leading-relaxed"
-          style={{ color: "#B3CFE5" }}
-        >
-          Unlock deep insights from your calls with AI-powered transcription,
-          QA scoring, and compliance monitoring.
-        </p>
-
-        {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 mb-16">
-          <Link
-            href="#"
-            className="flex items-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 animate-pulse-glow"
-            style={{
-              background: "#2C8FFF",
-              color: "#fff",
-              boxShadow: "0 0 32px rgba(44,143,255,0.35)",
-            }}
-          >
-            Get Started Free
-            <ArrowRight size={18} />
-          </Link>
-          <button
-            className="flex items-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-base transition-all duration-150"
+          <h1
+            className="font-black leading-[0.95] tracking-[-0.04em] mb-8"
             style={{
               color: "#EEF4FF",
-              border: "1px solid rgba(255,255,255,0.12)",
-              background: "transparent",
+              fontSize: "clamp(52px, 7vw, 88px)",
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = "rgba(255,255,255,0.05)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = "transparent")
-            }
           >
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center"
-              style={{ background: "rgba(44,143,255,0.15)" }}
+            Every call
+            <br />
+            <em
+              className="not-italic"
+              style={{
+                background: "linear-gradient(135deg, #2C8FFF 0%, #7AB8FF 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
             >
-              <Play size={12} color="#2C8FFF" style={{ marginLeft: 2 }} />
-            </div>
-            Watch Demo
-          </button>
-        </div>
+              analysed.
+            </em>
+            <br />
+            Nothing
+            <br />
+            missed.
+          </h1>
 
-        {/* Stats */}
-        <div
-          className="flex flex-wrap items-center justify-center gap-12 pt-8"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-        >
-          {stats.map((s, i) => (
-            <StatCounter key={i} value={s.value} label={s.label} duration={1200 + i * 200} />
-          ))}
-        </div>
-      </div>
-
-      {/* App mockup */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto mt-20 px-4 animate-float">
-        <div
-          className="w-full rounded-3xl overflow-hidden"
-          style={{
-            border: "1px solid rgba(44,143,255,0.2)",
-            background: "rgba(10,25,49,0.9)",
-            boxShadow: "0 40px 120px rgba(44,143,255,0.15), 0 0 0 1px rgba(255,255,255,0.05)",
-          }}
-        >
-          {/* Mock browser chrome */}
-          <div
-            className="flex items-center gap-2 px-5 py-3"
-            style={{ background: "rgba(255,255,255,0.03)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+          <p
+            className="text-lg leading-relaxed max-w-md mb-10"
+            style={{ color: "#B3CFE5", fontWeight: 400 }}
           >
-            <div className="w-3 h-3 rounded-full" style={{ background: "#ef4444" }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: "#eab308" }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: "#22c55e" }} />
-            <div
-              className="ml-4 flex-1 max-w-xs h-6 rounded-lg"
-              style={{ background: "rgba(255,255,255,0.06)" }}
-            />
+            AI transcription, QA scoring, and compliance monitoring — across
+            100% of your calls, in under 60 seconds each.
+          </p>
+
+          <div className="flex flex-wrap gap-4 mb-16">
+            <Link
+              href="#"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm"
+              style={{
+                background: "#2C8FFF",
+                color: "#fff",
+                boxShadow: "0 8px 32px rgba(44,143,255,0.4)",
+              }}
+            >
+              Start free — no card needed
+              <ArrowRight size={16} />
+            </Link>
+            <Link
+              href="#"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm"
+              style={{
+                color: "#EEF4FF",
+                border: "1px solid rgba(255,255,255,0.1)",
+              }}
+            >
+              Watch 3-min demo
+            </Link>
           </div>
 
-          {/* Mock dashboard */}
-          <div className="p-6 grid grid-cols-3 gap-4" style={{ minHeight: 300 }}>
-            {/* Sidebar mock */}
-            <div className="col-span-1 space-y-3">
-              {["Calls", "QA Scoring", "Analytics", "Red Flags", "Reports"].map((item, i) => (
+          {/* Inline social proof — no pill badge */}
+          <div className="flex items-center gap-6">
+            <div className="flex -space-x-2">
+              {["#2C8FFF","#7AB8FF","#B3CFE5","#EEF4FF"].map((c, i) => (
                 <div
-                  key={item}
-                  className="h-9 rounded-xl flex items-center px-4 gap-3"
-                  style={{
-                    background: i === 1 ? "rgba(44,143,255,0.15)" : "rgba(255,255,255,0.03)",
-                    border: i === 1 ? "1px solid rgba(44,143,255,0.3)" : "1px solid rgba(255,255,255,0.04)",
-                  }}
+                  key={i}
+                  className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-[9px] font-black"
+                  style={{ borderColor: "#020912", background: c, color: "#020912" }}
                 >
-                  <div
-                    className="w-2 h-2 rounded-full"
-                    style={{ background: i === 1 ? "#2C8FFF" : "rgba(255,255,255,0.2)" }}
-                  />
-                  <span className="text-xs font-medium" style={{ color: i === 1 ? "#EEF4FF" : "#B3CFE5" }}>
-                    {item}
-                  </span>
+                  {["SC","MR","PN","TW"][i]}
                 </div>
               ))}
             </div>
-
-            {/* Main content mock */}
-            <div className="col-span-2 space-y-4">
-              {/* Metric cards */}
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { label: "Calls Today", val: "247", up: true },
-                  { label: "QA Score", val: "91.4%", up: true },
-                  { label: "Red Flags", val: "3", up: false },
-                ].map((m) => (
-                  <div
-                    key={m.label}
-                    className="rounded-2xl p-4"
-                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
-                  >
-                    <div className="text-xs mb-1" style={{ color: "#B3CFE5" }}>{m.label}</div>
-                    <div className="text-xl font-black" style={{ color: "#EEF4FF" }}>{m.val}</div>
-                    <div
-                      className="text-xs mt-1 font-medium"
-                      style={{ color: m.up ? "#22c55e" : "#ef4444" }}
-                    >
-                      {m.up ? "↑ 12%" : "↓ 2"}
-                    </div>
-                  </div>
+            <div>
+              <div className="flex gap-0.5 mb-0.5">
+                {"★★★★★".split("").map((s, i) => (
+                  <span key={i} className="text-xs" style={{ color: "#eab308" }}>{s}</span>
                 ))}
               </div>
-
-              {/* Waveform bar chart mock */}
-              <div
-                className="rounded-2xl p-4"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
-              >
-                <div className="text-xs mb-3 font-medium" style={{ color: "#B3CFE5" }}>
-                  Sentiment Timeline
-                </div>
-                <div className="flex items-end gap-1 h-16">
-                  {Array.from({ length: 28 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 rounded-sm"
-                      style={{
-                        height: `${Math.round(20 + Math.sin(i * 0.5) * 30 + 30)}%`,
-                        background:
-                          i > 20
-                            ? "#22c55e"
-                            : i > 12
-                            ? "#2C8FFF"
-                            : "rgba(44,143,255,0.4)",
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
+              <p className="text-xs" style={{ color: "#B3CFE5" }}>
+                Loved by 500+ QA teams
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Bottom clip fade */}
+        {/* RIGHT — circular equalizer graphic */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-          style={{
-            background: "linear-gradient(to bottom, transparent, #020912)",
-          }}
-        />
+          className="relative w-full aspect-square max-w-lg mx-auto"
+          style={{ filter: "drop-shadow(0 0 60px rgba(44,143,255,0.12))" }}
+        >
+          <EqOrb />
+        </div>
       </div>
+
+      {/* Bottom fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, transparent, #020912)" }}
+      />
     </section>
   );
 }
