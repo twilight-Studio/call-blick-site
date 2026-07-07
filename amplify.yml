@@ -3,16 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd callblick-web
+        - cd WebSite/callblick-web
         - npm ci
     build:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: callblick-web/.next
+    baseDirectory: WebSite/callblick-web/.next
     files:
       - '**/*'
   cache:
     paths:
-      - callblick-web/node_modules/**/*
-      - callblick-web/.next/cache/**/*
+      - WebSite/callblick-web/node_modules/**/*
+      - WebSite/callblick-web/.next/cache/**/*
