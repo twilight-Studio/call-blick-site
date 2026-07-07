@@ -9,10 +9,9 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: WebSite/callblick-web/.next
+    baseDirectory: WebSite/callblick-web/out
     files:
       - '**/*'
   cache:
     paths:
       - WebSite/callblick-web/node_modules/**/*
-      - WebSite/callblick-web/.next/cache/**/*
