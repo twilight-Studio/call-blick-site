@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   title: "CallBlick — AI-Powered Call Intelligence",
   description:
     "Unlock deep insights from your calls with AI-powered transcription, QA scoring, and compliance monitoring.",
+  icons: {
+    icon: "/CallBlick-Logo.png",
+    apple: "/CallBlick-Logo.png",
+  },
   openGraph: {
     title: "CallBlick — AI-Powered Call Intelligence",
     description:
