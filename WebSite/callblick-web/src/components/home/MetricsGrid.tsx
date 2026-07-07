@@ -15,8 +15,8 @@ const metrics = [
     accent: "#7AB8FF",
   },
   {
-    value: "< 60s",
-    label: "Per-Call Analysis",
+    value: "< 120s",
+    label: "15 minutes Of Call Analysis",
     note: "From upload to full report",
     accent: "#22c55e",
   },

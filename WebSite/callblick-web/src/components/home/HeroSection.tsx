@@ -134,7 +134,7 @@ export default function HeroSection() {
             Call Intelligence Platform
           </p>
 
-          <h1
+          <h2
             className="font-black leading-[0.95] tracking-[-0.04em] mb-8"
             style={{
               color: "#EEF4FF",
@@ -154,17 +154,15 @@ export default function HeroSection() {
               analysed.
             </em>
             <br />
-            Nothing
-            <br />
-            missed.
-          </h1>
+            Nothing missed.
+          </h2>
 
           <p
             className="text-lg leading-relaxed max-w-md mb-10"
             style={{ color: "#B3CFE5", fontWeight: 400 }}
           >
             AI transcription, QA scoring, and compliance monitoring — across
-            100% of your calls, in under 60 seconds each.
+            100% of your calls.
           </p>
 
           <div className="flex flex-wrap gap-4 mb-16">
@@ -188,20 +186,20 @@ export default function HeroSection() {
                 border: "1px solid rgba(255,255,255,0.1)",
               }}
             >
-              Watch 3-min demo
+              Book a Demo
             </Link>
           </div>
 
           {/* Inline social proof — no pill badge */}
           <div className="flex items-center gap-6">
             <div className="flex -space-x-2">
-              {["#2C8FFF","#7AB8FF","#B3CFE5","#EEF4FF"].map((c, i) => (
+              {["#2C8FFF", "#7AB8FF", "#B3CFE5", "#EEF4FF"].map((c, i) => (
                 <div
                   key={i}
                   className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-[9px] font-black"
                   style={{ borderColor: "#020912", background: c, color: "#020912" }}
                 >
-                  {["SC","MR","PN","TW"][i]}
+                  {["SC", "MR", "PN", "TW"][i]}
                 </div>
               ))}
             </div>

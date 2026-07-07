@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Phone } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
   Product: [
@@ -43,16 +43,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div
-                className="w-8 h-8 rounded-xl flex items-center justify-center"
-                style={{ background: "#2C8FFF" }}
-              >
-                <Phone size={16} color="#fff" strokeWidth={2.5} />
-              </div>
-              <span className="text-lg font-black" style={{ color: "#EEF4FF" }}>
-                CallBlick
-              </span>
+            <Link href="/" className="inline-block mb-5">
+              <Image
+                src="/CallBlick-Logo.png"
+                alt="CallBlick"
+                width={160}
+                height={46}
+                className="block animate-logo-heartbeat"
+                style={{ objectFit: "contain" }}
+              />
             </Link>
             <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
               Advanced intelligence for conversation analysis. Turn every call

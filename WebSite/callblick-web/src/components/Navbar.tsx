@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -37,19 +38,15 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center"
-            style={{ background: "#2C8FFF" }}
-          >
-            <Phone size={16} color="#fff" strokeWidth={2.5} />
-          </div>
-          <span
-            className="text-lg font-black tracking-tight"
-            style={{ color: "#EEF4FF" }}
-          >
-            CallBlick
-          </span>
+        <Link href="/" className="flex items-center flex-shrink-0">
+          <Image
+            src="/CallBlick-Logo.png"
+            alt="CallBlick"
+            width={60}
+            height={60}
+            className="block animate-logo-heartbeat"
+            style={{ objectFit: "contain" }}
+          />
         </Link>
 
         {/* Desktop nav links */}
@@ -75,7 +72,7 @@ export default function Navbar() {
         {/* CTA buttons */}
         <div className="hidden md:flex items-center gap-3">
           <Link
-            href="#"
+            href="https://app.callblick.com/sign-in"
             className="px-5 py-2 rounded-2xl text-sm font-bold transition-all duration-150"
             style={{
               color: "#EEF4FF",
@@ -91,7 +88,7 @@ export default function Navbar() {
             Sign In
           </Link>
           <Link
-            href="#"
+            href="https://app.callblick.com/sign-up"
             className="px-5 py-2 rounded-2xl text-sm font-bold transition-all duration-150"
             style={{
               background: "#2C8FFF",
@@ -99,12 +96,12 @@ export default function Navbar() {
               boxShadow: "0 0 24px rgba(44,143,255,0.35)",
             }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.boxShadow =
-                "0 0 40px rgba(44,143,255,0.55)")
+            (e.currentTarget.style.boxShadow =
+              "0 0 40px rgba(44,143,255,0.55)")
             }
             onMouseLeave={(e) =>
-              (e.currentTarget.style.boxShadow =
-                "0 0 24px rgba(44,143,255,0.35)")
+            (e.currentTarget.style.boxShadow =
+              "0 0 24px rgba(44,143,255,0.35)")
             }
           >
             Get Started Free
@@ -145,7 +142,7 @@ export default function Navbar() {
           ))}
           <div className="flex flex-col gap-2 mt-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
             <Link
-              href="#"
+              href="https://app.callblick.com/sign-in"
               className="px-5 py-3 rounded-2xl text-sm font-bold text-center"
               style={{ color: "#EEF4FF", border: "1px solid rgba(255,255,255,0.12)" }}
               onClick={() => setMenuOpen(false)}
@@ -153,7 +150,7 @@ export default function Navbar() {
               Sign In
             </Link>
             <Link
-              href="#"
+              href="https://app.callblick.com/sign-up"
               className="px-5 py-3 rounded-2xl text-sm font-bold text-center"
               style={{ background: "#2C8FFF", color: "#fff" }}
               onClick={() => setMenuOpen(false)}

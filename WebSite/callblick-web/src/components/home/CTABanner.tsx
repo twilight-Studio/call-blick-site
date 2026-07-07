@@ -64,7 +64,7 @@ export default function CTABanner() {
 
               <div className="flex flex-col gap-4 lg:items-start">
                 <Link
-                  href="/pricing"
+                  href="https://app.callblick.com/sign-up"
                   className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-sm w-full lg:w-auto"
                   style={{
                     background: "#2C8FFF",
