@@ -51,20 +51,21 @@ export default function CTABanner() {
                     lineHeight: "0.95",
                   }}
                 >
-                  Start analyzing
+                  Apply for a
                   <br />
-                  your calls
+                  guided demo
                   <br />
-                  <span style={{ color: "#2C8FFF" }}>today.</span>
+                  <span style={{ color: "#2C8FFF" }}>and free points.</span>
                 </h2>
                 <p className="text-base" style={{ color: "#B3CFE5" }}>
-                  No setup fees. No long-term contracts.<br />Cancel anytime.
+                  We do not offer direct free usage. Approved teams can receive
+                  demo access and free points together.
                 </p>
               </div>
 
               <div className="flex flex-col gap-4 lg:items-start">
                 <Link
-                  href="https://app.callblick.com/sign-up"
+                  href="/contact"
                   className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-sm w-full lg:w-auto"
                   style={{
                     background: "#2C8FFF",
@@ -72,20 +73,20 @@ export default function CTABanner() {
                     boxShadow: "0 8px 32px rgba(44,143,255,0.35)",
                   }}
                 >
-                  Start Free Trial — no card needed
+                  Apply for demo access
                 </Link>
                 <Link
-                  href="#"
+                  href="/contact"
                   className="inline-flex items-center justify-center px-8 py-4 rounded-xl font-semibold text-sm w-full lg:w-auto"
                   style={{
                     color: "#EEF4FF",
                     border: "1px solid rgba(255,255,255,0.1)",
                   }}
                 >
-                  Book a 20-min demo
+                  Ask about free points
                 </Link>
                 <p className="text-xs" style={{ color: "rgba(179,207,229,0.4)" }}>
-                  14-day free trial · Onboarding included
+                  GDPR and non-GDPR point plans available
                 </p>
               </div>
             </div>

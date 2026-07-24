@@ -8,28 +8,23 @@ const footerLinks = {
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
     { label: "Use Cases", href: "/use-cases" },
-    { label: "Changelog", href: "#" },
-    { label: "Roadmap", href: "#" },
+    { label: "Data Privacy", href: "/data-privacy" },
   ],
   Company: [
     { label: "About", href: "#" },
     { label: "Blog", href: "/blog" },
-    { label: "Careers", href: "#" },
-    { label: "Press", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact", href: "/contact" },
   ],
   Resources: [
-    { label: "Documentation", href: "#" },
-    { label: "API Reference", href: "#" },
-    { label: "Integrations", href: "#" },
-    { label: "Status", href: "#" },
-    { label: "Support", href: "#" },
+    { label: "Status", href: "/status" },
+    { label: "Support", href: "/support" },
   ],
   Legal: [
-    { label: "Privacy Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms of Service", href: "#" },
     { label: "Cookie Policy", href: "#" },
-    { label: "GDPR", href: "#" },
+    { label: "GDPR", href: "/data-privacy" },
   ],
 };
 
@@ -97,13 +92,17 @@ export default function Footer() {
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
           <p className="text-sm" style={{ color: "#B3CFE5" }}>
-            © 2025 CallBlick. All rights reserved.
+            © 2026 CallBlick. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            {["Privacy Policy", "Terms of Service", "Status"].map((item) => (
+            {[
+              { label: "Privacy Policy", href: "/privacy-policy" },
+              { label: "Terms of Service", href: "#" },
+              { label: "Status", href: "/status" },
+            ].map((item) => (
               <Link
-                key={item}
-                href="#"
+                key={item.label}
+                href={item.href}
                 className="text-sm transition-colors duration-150"
                 style={{ color: "#B3CFE5" }}
                 onMouseEnter={(e) =>
@@ -113,7 +112,7 @@ export default function Footer() {
                   (e.currentTarget.style.color = "#B3CFE5")
                 }
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>

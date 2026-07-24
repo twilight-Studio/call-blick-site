@@ -3,27 +3,27 @@ import StatCounter from "@/components/StatCounter";
 
 const metrics = [
   {
-    value: "99.4%",
-    label: "Transcription Accuracy",
-    note: "Across all accents and noise levels",
+    value: "60s",
+    label: "Fast Call Processing",
+    note: "An average call can be processed in as little as 60 seconds",
     accent: "#2C8FFF",
   },
   {
-    value: "10×",
-    label: "Faster QA Reviews",
-    note: "vs. manual review workflows",
+    value: "100",
+    label: "Points Per Hour",
+    note: "100 points equals 1 hour of call analysis",
     accent: "#7AB8FF",
   },
   {
-    value: "< 120s",
-    label: "15 minutes Of Call Analysis",
-    note: "From upload to full report",
+    value: "$0.065",
+    label: "Low Minute Cost",
+    note: "1 call minute plus analysis can be as low as this amount",
     accent: "#22c55e",
   },
   {
-    value: "100%",
-    label: "Call Coverage",
-    note: "Not a sample — every single call",
+    value: "0",
+    label: "Data Retention",
+    note: "Zero data retention options are available by plan",
     accent: "#EEF4FF",
   },
 ];
@@ -50,8 +50,8 @@ export default function MetricsGrid() {
               <br />
               themselves.
             </h2>
-            <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5", maxWidth: 300 }}>
-              Proven across thousands of enterprise call centers, measured on real-world data — not benchmark datasets.
+            <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5", maxWidth: 340 }}>
+              Proven on real-time data across different enterprises, with pricing and privacy controls based on the selected plan.
             </p>
           </FadeInSection>
 
@@ -73,7 +73,7 @@ export default function MetricsGrid() {
                     style={{ background: m.accent }}
                   />
                   <StatCounter value={m.value} label={m.label} duration={1000 + i * 200} />
-                  <p className="text-xs mt-3" style={{ color: "rgba(179,207,229,0.5)" }}>
+                  <p className="text-xs mt-3" style={{ color: "rgba(179,207,229,0.72)" }}>
                     {m.note}
                   </p>
                 </div>

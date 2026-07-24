@@ -3,7 +3,6 @@ import SocialProofBar from "@/components/home/SocialProofBar";
 import FeatureShowcase from "@/components/home/FeatureShowcase";
 import HowItWorks from "@/components/home/HowItWorks";
 import MetricsGrid from "@/components/home/MetricsGrid";
-import Testimonials from "@/components/home/Testimonials";
 import CTABanner from "@/components/home/CTABanner";
 
 export default function HomePage() {
@@ -14,7 +13,6 @@ export default function HomePage() {
       <FeatureShowcase />
       <HowItWorks />
       <MetricsGrid />
-      <Testimonials />
       <CTABanner />
     </>
   );

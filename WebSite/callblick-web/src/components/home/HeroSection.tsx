@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LockKeyhole } from "lucide-react";
 
 /* ── Circular equalizer SVG ── */
 function EqOrb() {
@@ -127,6 +127,19 @@ export default function HeroSection() {
 
         {/* LEFT — editorial copy, not centred */}
         <div>
+          <div
+            className="mb-8 inline-flex max-w-xl items-start gap-3 rounded-2xl px-4 py-3"
+            style={{
+              background: "rgba(10,25,49,0.72)",
+              border: "1px solid rgba(44,143,255,0.22)",
+            }}
+          >
+            <LockKeyhole size={18} style={{ color: "#2C8FFF", flexShrink: 0, marginTop: 2 }} />
+            <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
+              We handle data securely according to your use case, from zero data retention to EU-only inference for regulated teams.
+            </p>
+          </div>
+
           <p
             className="text-xs font-black uppercase tracking-[0.2em] mb-8"
             style={{ color: "#2C8FFF" }}
@@ -161,13 +174,29 @@ export default function HeroSection() {
             className="text-lg leading-relaxed max-w-md mb-10"
             style={{ color: "#B3CFE5", fontWeight: 400 }}
           >
-            AI transcription, QA scoring, and compliance monitoring — across
-            100% of your calls.
+            Asynchronous call uploads with diarized transcription, QA scoring,
+            sentiment, summaries, and compliance checks.
           </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10 max-w-xl">
+            {["GDPR-aligned options", "Zero data retention", "Traceable analysis"].map((item) => (
+              <div
+                key={item}
+                className="rounded-xl px-4 py-3 text-sm font-bold"
+                style={{
+                  color: "#EEF4FF",
+                  background: "rgba(44,143,255,0.08)",
+                  border: "1px solid rgba(44,143,255,0.18)",
+                }}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
 
           <div className="flex flex-wrap gap-4 mb-16">
             <Link
-              href="#"
+              href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm"
               style={{
                 background: "#2C8FFF",
@@ -175,11 +204,11 @@ export default function HeroSection() {
                 boxShadow: "0 8px 32px rgba(44,143,255,0.4)",
               }}
             >
-              Start free — no card needed
+              Apply for demo and free points
               <ArrowRight size={16} />
             </Link>
             <Link
-              href="#"
+              href="/contact"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm"
               style={{
                 color: "#EEF4FF",
@@ -210,7 +239,7 @@ export default function HeroSection() {
                 ))}
               </div>
               <p className="text-xs" style={{ color: "#B3CFE5" }}>
-                Loved by 500+ QA teams
+                Proven on real-time data across different enterprises
               </p>
             </div>
           </div>

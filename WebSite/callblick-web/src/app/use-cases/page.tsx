@@ -90,10 +90,10 @@ function FinanceIllustration() {
       <text x="64" y="164" textAnchor="middle" fill="#8b5cf6" fontSize="7.5" fontWeight="700" fontFamily="system-ui">PCI Compliant</text>
       <text x="64" y="177" textAnchor="middle" fill="rgba(139,92,246,0.7)" fontSize="6.5" fontFamily="system-ui">No data exposed</text>
 
-      {/* SOC2 badge */}
+      {/* GDPR audit badge */}
       <rect x="118" y="152" width="78" height="32" rx="8"
         fill="rgba(34,197,94,0.08)" stroke="rgba(34,197,94,0.25)" strokeWidth="0.8" />
-      <text x="157" y="164" textAnchor="middle" fill="#22c55e" fontSize="7.5" fontWeight="700" fontFamily="system-ui">SOC 2 Type II</text>
+      <text x="157" y="164" textAnchor="middle" fill="#22c55e" fontSize="7.5" fontWeight="700" fontFamily="system-ui">GDPR audit trail</text>
       <text x="157" y="177" textAnchor="middle" fill="rgba(34,197,94,0.6)" fontSize="6.5" fontFamily="system-ui">Certified</text>
 
       {/* Export indicator */}
@@ -169,7 +169,7 @@ const useCases = [
     stats: [
       { val: "100%", label: "Disclosure verification" },
       { val: "−62%", label: "Compliance incidents" },
-      { val: "< 45s", label: "Per-call analysis" },
+      { val: "60s", label: "Fast call processing" },
     ],
     painPoints: [
       { title: "Compliance disclosure verification", desc: "Every required disclosure verified, timestamped, and logged automatically." },
@@ -205,7 +205,7 @@ const useCases = [
     slug: "support",
     label: "Customer Support",
     headline: "Coach smarter.\nEscalate earlier.",
-    description: "Customer support teams live and die by call quality. CallBlick gives supervisors real-time visibility into every agent's performance — with evidence-backed coaching.",
+    description: "Customer support teams live and die by call quality. CallBlick gives supervisors evidence-backed visibility into every uploaded call and agent performance.",
     stats: [
       { val: "+22%", label: "CSAT improvement" },
       { val: "r=0.87", label: "QA↔CSAT correlation" },

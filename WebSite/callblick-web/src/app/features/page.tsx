@@ -239,9 +239,9 @@ function HITLIllustration() {
 
 const features = [
   {
-    n: "01", title: "Real-time Transcription",
+    n: "01", title: "Async Transcription",
     tagline: "Speaker-diarized, confidence-scored.",
-    description: "Industry-leading STT with per-word confidence, 30+ languages, and filler word detection. Results in under 2 seconds.",
+    description: "Industry-leading STT with per-word confidence, 30+ languages, and filler word detection. An average call can be processed in as little as 60 seconds.",
     bullets: ["Speaker-separated transcripts","Per-word confidence scores","30+ language support","Custom vocabulary lists","Filler word detection","Silence / hold time tracking"],
     Illustration: TranscriptIllustration, accent: "#2C8FFF",
   },
@@ -255,8 +255,8 @@ const features = [
   {
     n: "03", title: "Red Flag Detection",
     tagline: "Violations caught automatically.",
-    description: "Define keyword libraries and compliance rules. Get instant alerts on 100% of calls — timestamped and escalation-ready.",
-    bullets: ["Custom keyword & phrase library","Regex pattern matching","Real-time alert triggers","Escalation routing rules","Violation severity levels","Full audit trail per event"],
+    description: "Define keyword libraries and compliance rules. Get timestamped flags across uploaded calls with escalation-ready evidence.",
+    bullets: ["Custom keyword & phrase library","Regex pattern matching","Post-upload flagging","Escalation routing rules","Violation severity levels","Full audit trail per event"],
     Illustration: RedFlagIllustration, accent: "#ef4444",
   },
   {
@@ -283,7 +283,7 @@ const features = [
 ];
 
 const comparisonRows = [
-  { feature: "Review speed", manual: "Hours per call", callblick: "< 60 seconds" },
+  { feature: "Review speed", manual: "Hours per call", callblick: "As little as 60 seconds" },
   { feature: "Coverage", manual: "5–10% of calls", callblick: "100% of calls" },
   { feature: "Consistency", manual: "Varies by reviewer", callblick: "Objective every time" },
   { feature: "Red flag detection", manual: "Reactive", callblick: "Automatic" },
@@ -471,7 +471,7 @@ export default function FeaturesPage() {
             className="inline-flex px-8 py-4 rounded-xl font-semibold text-sm"
             style={{ background: "#2C8FFF", color: "#fff", boxShadow: "0 8px 32px rgba(44,143,255,0.35)" }}
           >
-            Start free — no card needed →
+            Apply for demo access →
           </Link>
         </FadeInSection>
       </div>

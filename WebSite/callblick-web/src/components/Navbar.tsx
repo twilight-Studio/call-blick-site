@@ -10,7 +10,9 @@ const navLinks = [
   { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
   { label: "Use Cases", href: "/use-cases" },
+  { label: "Data Privacy", href: "/data-privacy" },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -88,7 +90,7 @@ export default function Navbar() {
             Sign In
           </Link>
           <Link
-            href="https://app.callblick.com/sign-up"
+            href="/contact"
             className="px-5 py-2 rounded-2xl text-sm font-bold transition-all duration-150"
             style={{
               background: "#2C8FFF",
@@ -104,7 +106,7 @@ export default function Navbar() {
               "0 0 24px rgba(44,143,255,0.35)")
             }
           >
-            Get Started Free
+            Apply for Demo
           </Link>
         </div>
 
@@ -150,12 +152,12 @@ export default function Navbar() {
               Sign In
             </Link>
             <Link
-              href="https://app.callblick.com/sign-up"
+              href="/contact"
               className="px-5 py-3 rounded-2xl text-sm font-bold text-center"
               style={{ background: "#2C8FFF", color: "#fff" }}
               onClick={() => setMenuOpen(false)}
             >
-              Get Started Free
+              Apply for Demo
             </Link>
           </div>
         </div>
