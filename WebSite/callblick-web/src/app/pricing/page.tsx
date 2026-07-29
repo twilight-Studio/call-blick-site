@@ -3,10 +3,10 @@ import { Check, ShieldCheck, Zap } from "lucide-react";
 import FadeInSection from "@/components/FadeInSection";
 
 const pointRules = [
-  "100 points = 1 hour of call analysis",
-  "1,000 points = 10 hours",
-  "10,000 points = 100 hours",
-  "1 call minute plus analysis as low as $0.065",
+  "1 point/credit = 1 minute of call analysis",
+  "60 free points/credits = 60 minutes for new organizations",
+  "1,000 points = 1,000 minutes",
+  "10,000 points = 10,000 minutes",
 ];
 
 const plans = [
@@ -15,8 +15,8 @@ const plans = [
     subtitle: "For regulated industries that require strict EU-only processing.",
     Icon: ShieldCheck,
     packages: [
-      { price: "$39", points: "1,000 Points", note: "Perfect for small teams needing GDPR-aligned call analysis." },
-      { price: "$349", points: "10,000 Points", note: "Best value for sensitive customer conversations at scale." },
+      { price: "$39", points: "1,000 Points", note: "Includes 1,000 minutes of GDPR-aligned call analysis." },
+      { price: "$349", points: "10,000 Points", note: "Includes 10,000 minutes for sensitive customer conversations at scale." },
     ],
     features: [
       "EU-only inference",
@@ -32,8 +32,8 @@ const plans = [
     subtitle: "For high-volume teams that want maximum performance at the lowest cost.",
     Icon: Zap,
     packages: [
-      { price: "$29", points: "1,000 Points", note: "Affordable entry tier for general call analytics." },
-      { price: "$249", points: "10,000 Points", note: "High-volume discount for sales, support, and operations." },
+      { price: "$29", points: "1,000 Points", note: "Includes 1,000 minutes of general call analytics." },
+      { price: "$249", points: "10,000 Points", note: "Includes 10,000 minutes for sales, support, and operations." },
     ],
     features: [
       "Zero data retention",
@@ -89,7 +89,7 @@ export default function PricingPage() {
           </div>
           <div className="space-y-4">
             <p className="text-lg leading-relaxed" style={{ color: "#B3CFE5" }}>
-              Choose GDPR-compliant EU processing or high-performance global processing. Demo access and free points are available by application.
+              Choose GDPR-compliant EU processing or high-performance global processing. New organizations can apply for demo access with 60 free points/credits for 60 minutes of calls.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {pointRules.map((rule) => (
@@ -162,7 +162,7 @@ export default function PricingPage() {
                   className="mt-8 inline-flex w-full items-center justify-center rounded-xl px-6 py-4 text-sm font-bold"
                   style={{ background: "#2C8FFF", color: "#fff", boxShadow: "0 8px 28px rgba(44,143,255,0.28)" }}
                 >
-                  Apply for demo and free points
+                  Apply for demo and 60 free points
                 </Link>
               </div>
             </FadeInSection>

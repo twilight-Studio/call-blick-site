@@ -204,7 +204,7 @@ export default function HeroSection() {
                 boxShadow: "0 8px 32px rgba(44,143,255,0.4)",
               }}
             >
-              Apply for demo and free points
+              Apply for demo and 60 free points
               <ArrowRight size={16} />
             </Link>
             <Link

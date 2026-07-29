@@ -9,15 +9,15 @@ const metrics = [
     accent: "#2C8FFF",
   },
   {
-    value: "100",
-    label: "Points Per Hour",
-    note: "100 points equals 1 hour of call analysis",
+    value: "60",
+    label: "Points Per 60 Minutes",
+    note: "60 points or credits process 60 minutes of uploaded calls",
     accent: "#7AB8FF",
   },
   {
-    value: "$0.065",
-    label: "Low Minute Cost",
-    note: "1 call minute plus analysis can be as low as this amount",
+    value: "60",
+    label: "Free Starter Credits",
+    note: "New organizations can receive 60 free points/credits to process 60 call minutes",
     accent: "#22c55e",
   },
   {

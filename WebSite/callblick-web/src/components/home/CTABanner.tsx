@@ -55,11 +55,12 @@ export default function CTABanner() {
                   <br />
                   guided demo
                   <br />
-                  <span style={{ color: "#2C8FFF" }}>and free points.</span>
+                  <span style={{ color: "#2C8FFF" }}>and 60 free points.</span>
                 </h2>
                 <p className="text-base" style={{ color: "#B3CFE5" }}>
-                  We do not offer direct free usage. Approved teams can receive
-                  demo access and free points together.
+                  We do not offer direct free usage. Approved new organizations
+                  can receive demo access with 60 free points/credits to process
+                  60 minutes of uploaded calls.
                 </p>
               </div>
 
@@ -83,7 +84,7 @@ export default function CTABanner() {
                     border: "1px solid rgba(255,255,255,0.1)",
                   }}
                 >
-                  Ask about free points
+                  Ask about 60 free points
                 </Link>
                 <p className="text-xs" style={{ color: "rgba(179,207,229,0.4)" }}>
                   GDPR and non-GDPR point plans available

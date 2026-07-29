@@ -13,10 +13,10 @@ export default function ContactPage() {
             <h1 className="font-black tracking-[-0.04em] leading-[0.95] mb-6" style={{ color: "#EEF4FF", fontSize: "clamp(44px,6vw,72px)" }}>
               Request a demo
               <br />
-              and free points.
+              and 60 free points.
             </h1>
             <p className="text-lg leading-relaxed mb-8" style={{ color: "#B3CFE5" }}>
-              Tell us about your call analysis use case, privacy requirements, and expected volume. We will review whether demo access and free points are a fit.
+              Tell us about your call analysis use case, privacy requirements, and expected volume. We will review whether demo access with 60 free points/credits for 60 call minutes is a fit.
             </p>
             <div className="inline-flex items-center gap-3 rounded-2xl px-5 py-4" style={{ background: "rgba(10,25,49,0.68)", border: "1px solid rgba(44,143,255,0.16)" }}>
               <Mail size={18} style={{ color: "#2C8FFF" }} />
