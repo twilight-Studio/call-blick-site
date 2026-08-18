@@ -52,6 +52,23 @@ export default function Footer() {
               Advanced intelligence for conversation analysis. Turn every call
               into actionable insight.
             </p>
+            <div className="mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <p
+                className="text-xs font-black uppercase tracking-[0.16em] mb-2"
+                style={{ color: "#2C8FFF" }}
+              >
+                Registered office
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
+                DesignsX
+                <br />
+                Kneippweg 4
+                <br />
+                88214 Ravensburg
+                <br />
+                Deutschland
+              </p>
+            </div>
           </div>
 
           {/* Link columns */}
