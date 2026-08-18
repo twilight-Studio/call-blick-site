@@ -54,33 +54,35 @@ export default function Footer() {
             </p>
             <div className="mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <p
-                className="text-xs font-black uppercase tracking-[0.16em] mb-2"
+                className="text-xs font-black uppercase tracking-[0.16em] mb-3"
                 style={{ color: "#2C8FFF" }}
               >
-                Registered office
+                Offices
               </p>
-              <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
-                DesignsX
-                <br />
-                Kneippweg 4
-                <br />
-                88214 Ravensburg
-                <br />
-                Deutschland
-              </p>
-            </div>
-            <div className="mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-              <p
-                className="text-xs font-black uppercase tracking-[0.16em] mb-2"
-                style={{ color: "#2C8FFF" }}
-              >
-                Office
-              </p>
-              <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
-                298a Bath Road
-                <br />
-                Hounslow, TW4 7DN
-              </p>
+              <div className="flex flex-wrap gap-8">
+                <div>
+                  <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
+                    <span className="font-black" style={{ color: "#EEF4FF" }}>Registered office</span>
+                    <br />
+                    DesignsX
+                    <br />
+                    Kneippweg 4
+                    <br />
+                    88214 Ravensburg
+                    <br />
+                    Deutschland
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
+                    <span className="font-black" style={{ color: "#EEF4FF" }}>Office</span>
+                    <br />
+                    298a Bath Road
+                    <br />
+                    Hounslow, TW4 7DN
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
