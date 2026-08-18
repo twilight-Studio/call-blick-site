@@ -69,6 +69,19 @@ export default function Footer() {
                 Deutschland
               </p>
             </div>
+            <div className="mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <p
+                className="text-xs font-black uppercase tracking-[0.16em] mb-2"
+                style={{ color: "#2C8FFF" }}
+              >
+                Office
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
+                298a Bath Road
+                <br />
+                Hounslow, TW4 7DN
+              </p>
+            </div>
           </div>
 
           {/* Link columns */}
