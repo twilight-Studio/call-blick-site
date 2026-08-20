@@ -40,7 +40,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-5">
               <Image
-                src="/CallBlick-Logo.png"
+                src="/CallBlick-Logo-Final.png"
                 alt="CallBlick"
                 width={160}
                 height={46}
