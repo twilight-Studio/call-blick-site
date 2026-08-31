@@ -8,6 +8,24 @@ const API_URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/query-requests`;
 
 type Status = "idle" | "loading" | "success" | "error";
 
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <path
+        d="M20.5 11.8a8.45 8.45 0 0 1-12.58 7.37L4 20.25l1.08-3.82A8.45 8.45 0 1 1 20.5 11.8Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.74 8.7c.18-.4.37-.41.54-.42h.46c.15 0 .4-.06.62.47.23.54.77 1.86.84 2 .07.13.12.29.02.47-.1.19-.15.29-.3.45-.15.17-.32.37-.46.49-.15.15-.3.31-.13.6.17.28.75 1.23 1.6 1.99 1.1.98 2.02 1.28 2.31 1.43.28.14.45.12.61-.07.18-.2.71-.82.9-1.1.18-.29.37-.24.62-.15.25.1 1.62.76 1.9.9.27.13.46.2.52.31.07.12.07.68-.16 1.34-.23.65-1.35 1.25-1.88 1.29-.48.03-1.08.04-1.74-.11-.4-.09-.92-.3-1.58-.58-2.78-1.2-4.6-3.99-4.74-4.17-.14-.19-1.13-1.5-1.13-2.87 0-1.36.72-2.03.98-2.3Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 export default function ContactPage() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -63,11 +81,30 @@ export default function ContactPage() {
             <p className="text-lg leading-relaxed mb-8" style={{ color: "#B3CFE5" }}>
               Tell us about your call analysis use case, privacy requirements, and expected volume. We will review whether demo access with 60 free points/credits for 60 call minutes is a fit.
             </p>
-            <div className="inline-flex items-center gap-3 rounded-2xl px-5 py-4" style={{ background: "rgba(10,25,49,0.68)", border: "1px solid rgba(44,143,255,0.16)" }}>
-              <Mail size={18} style={{ color: "#2C8FFF" }} />
-              <a className="text-sm font-bold" href="mailto:info@callblick.com" style={{ color: "#EEF4FF" }}>
-                info@callblick.com
-              </a>
+            <div className="space-y-3">
+              <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: "#2C8FFF" }}>
+                Quick connect
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  className="inline-flex items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold"
+                  href="mailto:info@callblick.com"
+                  style={{ background: "rgba(10,25,49,0.68)", border: "1px solid rgba(44,143,255,0.16)", color: "#EEF4FF" }}
+                >
+                  <Mail size={18} style={{ color: "#2C8FFF" }} />
+                  info@callblick.com
+                </a>
+                <a
+                  className="inline-flex items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold"
+                  href="https://wa.me/4915231357432"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ background: "rgba(10,25,49,0.68)", border: "1px solid rgba(44,143,255,0.24)", color: "#EEF4FF" }}
+                >
+                  <WhatsAppIcon className="text-[#2C8FFF]" />
+                  +49 1523 1357432
+                </a>
+              </div>
             </div>
           </div>
 

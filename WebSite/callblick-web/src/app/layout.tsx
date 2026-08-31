@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
+import FloatingWhatsAppButton from "@/components/home/FloatingWhatsAppButton";
 
 export const metadata: Metadata = {
   title: "CallBlick — AI-Powered Call Intelligence",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <main className="flex-1 relative z-10">{children}</main>
         <Footer />
         <CookieConsent />
+        <FloatingWhatsAppButton />
       </body>
     </html>
   );
