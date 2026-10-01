@@ -15,8 +15,8 @@ const plans = [
     subtitle: "For regulated industries that require strict EU-only processing.",
     Icon: ShieldCheck,
     packages: [
-      { price: "$39", points: "1,000 Points", note: "Includes 1,000 minutes of GDPR-aligned call analysis." },
-      { price: "$349", points: "10,000 Points", note: "Includes 10,000 minutes for sensitive customer conversations at scale." },
+      { points: "1,000 Points", note: "Includes 1,000 minutes of GDPR-aligned call analysis." },
+      { points: "10,000 Points", note: "Includes 10,000 minutes for sensitive customer conversations at scale." },
     ],
     features: [
       "EU-only inference",
@@ -32,8 +32,8 @@ const plans = [
     subtitle: "For high-volume teams that want maximum performance at the lowest cost.",
     Icon: Zap,
     packages: [
-      { price: "$29", points: "1,000 Points", note: "Includes 1,000 minutes of general call analytics." },
-      { price: "$249", points: "10,000 Points", note: "Includes 10,000 minutes for sales, support, and operations." },
+      { points: "1,000 Points", note: "Includes 1,000 minutes of general call analytics." },
+      { points: "10,000 Points", note: "Includes 10,000 minutes for sales, support, and operations." },
     ],
     features: [
       "Zero data retention",
@@ -132,8 +132,11 @@ export default function PricingPage() {
                       className="rounded-2xl p-5"
                       style={{ background: "rgba(2,9,18,0.5)", border: "1px solid rgba(255,255,255,0.07)" }}
                     >
-                      <p className="text-4xl font-black mb-1" style={{ color: "#EEF4FF" }}>
-                        {pkg.price}
+                      <p
+                        className="mb-2 text-3xl font-black uppercase tracking-[-0.03em]"
+                        style={{ color: "#7AB8FF" }}
+                      >
+                        Coming Soon
                       </p>
                       <p className="text-base font-black mb-3" style={{ color: "#2C8FFF" }}>
                         {pkg.points}

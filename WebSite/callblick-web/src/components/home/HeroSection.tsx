@@ -1,119 +1,339 @@
 "use client";
 
 import Link from "next/link";
+import Script from "next/script";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, LockKeyhole } from "lucide-react";
 
-/* ── Circular equalizer SVG ── */
-function EqOrb() {
+type YouTubePlayer = {
+  destroy: () => void;
+  getPlayerState: () => number;
+  isMuted: () => boolean;
+  mute: () => void;
+  playVideo: () => void;
+  setVolume: (volume: number) => void;
+  unMute: () => void;
+};
+
+type YouTubePlayerEvent = {
+  target: YouTubePlayer;
+};
+
+type YouTubePlayerStateEvent = YouTubePlayerEvent & {
+  data: number;
+};
+
+type YouTubePlayerConstructor = new (
+  element: HTMLIFrameElement,
+  options: {
+    events: {
+      onAutoplayBlocked: (event: YouTubePlayerEvent) => void;
+      onReady: (event: YouTubePlayerEvent) => void;
+      onStateChange: (event: YouTubePlayerStateEvent) => void;
+    };
+  },
+) => YouTubePlayer;
+
+declare global {
+  interface Window {
+    YT?: {
+      Player: YouTubePlayerConstructor;
+    };
+  }
+}
+
+const heroVideoUrl =
+  "https://www.youtube-nocookie.com/embed/9v2IBq8PsFc?autoplay=1&mute=1&controls=0&loop=1&playlist=9v2IBq8PsFc&playsinline=1&disablekb=1&fs=0&rel=0&iv_load_policy=3&enablejsapi=1";
+
+const heroVideoVolume = 25;
+const youtubePlayingState = 1;
+
+const videoFeatherMask = [
+  "linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+  "linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%)",
+].join(", ");
+
+function VideoSignalField() {
   const bars = 48;
-  const cx = 260;
-  const cy = 260;
-  const innerR = 90;
-  const outerR = 200;
+  const cx = 450;
+  const cy = 300;
+  const innerRx = 292;
+  const innerRy = 164;
+  const roundCoordinate = (value: number) => Number(value.toFixed(3));
 
   const barEls = Array.from({ length: bars }).map((_, i) => {
     const angle = (i / bars) * 2 * Math.PI - Math.PI / 2;
-    const h = Math.round(18 + Math.sin(i * 0.52) * 30 + Math.sin(i * 0.19) * 20);
-    const x1 = cx + Math.cos(angle) * innerR;
-    const y1 = cy + Math.sin(angle) * innerR;
-    const x2 = cx + Math.cos(angle) * (innerR + h);
-    const y2 = cy + Math.sin(angle) * (innerR + h);
-    const delay = ((i * 0.18) % 3).toFixed(2);
-    const dur = (1.8 + (i % 5) * 0.28).toFixed(2);
-    return { x1, y1, x2, y2, delay, dur, i };
+    const length = Math.round(38 + ((Math.sin(i * 1.37) + 1) / 2) * 64);
+    const x1 = roundCoordinate(cx + Math.cos(angle) * innerRx);
+    const y1 = roundCoordinate(cy + Math.sin(angle) * innerRy);
+    const x2 = roundCoordinate(cx + Math.cos(angle) * (innerRx + length));
+    const y2 = roundCoordinate(cy + Math.sin(angle) * (innerRy + length * 0.65));
+    const delay = ((i * 0.13) % 3).toFixed(2);
+    const duration = (1.8 + (i % 5) * 0.25).toFixed(2);
+
+    return { delay, duration, i, x1, x2, y1, y2 };
   });
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Outer halo rings */}
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[180%] w-[150%] -translate-x-1/2 -translate-y-1/2"
+    >
       <svg
-        viewBox="0 0 520 520"
-        className="absolute inset-0 w-full h-full animate-spin-slow"
-        style={{ opacity: 0.18 }}
+        viewBox="0 0 900 600"
+        className="absolute inset-0 h-full w-full animate-spin-slow"
+        style={{ opacity: 0.2 }}
       >
-        <circle cx="260" cy="260" r="240" fill="none" stroke="#2C8FFF" strokeWidth="0.5" strokeDasharray="4 10" />
-        <circle cx="260" cy="260" r="220" fill="none" stroke="#2C8FFF" strokeWidth="0.3" />
+        <ellipse cx="450" cy="300" rx="410" ry="270" fill="none" stroke="#2C8FFF" strokeWidth="0.8" strokeDasharray="5 13" />
+        <ellipse cx="450" cy="300" rx="380" ry="245" fill="none" stroke="#2C8FFF" strokeWidth="0.5" />
       </svg>
 
       <svg
-        viewBox="0 0 520 520"
-        className="absolute inset-0 w-full h-full animate-spin-slow-reverse"
-        style={{ opacity: 0.12 }}
+        viewBox="0 0 900 600"
+        className="absolute inset-0 h-full w-full animate-spin-slow-reverse"
+        style={{ opacity: 0.14 }}
       >
-        <circle cx="260" cy="260" r="255" fill="none" stroke="#2C8FFF" strokeWidth="0.4" strokeDasharray="2 18" />
+        <ellipse cx="450" cy="300" rx="430" ry="282" fill="none" stroke="#2C8FFF" strokeWidth="0.6" strokeDasharray="3 20" />
       </svg>
 
-      {/* Main equalizer SVG */}
-      <svg viewBox="0 0 520 520" className="relative w-full h-full" style={{ filter: "drop-shadow(0 0 32px rgba(44,143,255,0.3))" }}>
+      <svg
+        viewBox="0 0 900 600"
+        className="relative h-full w-full overflow-visible"
+        style={{ filter: "drop-shadow(0 0 30px rgba(44,143,255,0.32))" }}
+      >
         <defs>
-          <radialGradient id="orb-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#2C8FFF" stopOpacity="0.25" />
+          <radialGradient id="video-orbit-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#2C8FFF" stopOpacity="0.28" />
             <stop offset="100%" stopColor="#020912" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="core-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#0D2A4A" />
-            <stop offset="100%" stopColor="#020912" />
           </radialGradient>
         </defs>
 
-        {/* Ambient glow */}
-        <circle cx="260" cy="260" r="260" fill="url(#orb-glow)" />
+        <ellipse cx="450" cy="300" rx="430" ry="286" fill="url(#video-orbit-glow)" />
 
-        {/* Eq bars */}
-        {barEls.map(({ x1, y1, x2, y2, delay, dur, i }) => (
+        {barEls.map(({ delay, duration, i, x1, x2, y1, y2 }) => (
           <line
             key={i}
-            x1={x1} y1={y1} x2={x2} y2={y2}
-            stroke={i % 6 === 0 ? "#EEF4FF" : "#2C8FFF"}
-            strokeWidth={i % 6 === 0 ? "2" : "1.5"}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke={i % 7 === 0 ? "#EEF4FF" : "#2C8FFF"}
+            strokeWidth={i % 7 === 0 ? "2.4" : "1.7"}
             strokeLinecap="round"
-            style={{ opacity: 0.7 + (i % 4) * 0.07 }}
           >
-            <animateTransform
-              attributeName="transform"
-              type="scale"
-              from="1"
-              to="0.55"
-              dur={`${dur}s`}
-              begin={`${delay}s`}
-              repeatCount="indefinite"
-              additive="sum"
-              attributeType="XML"
-            />
+            <animate attributeName="x2" values={`${x1};${x2};${x2}`} keyTimes="0;0.45;1" dur={`${duration}s`} begin={`${delay}s`} repeatCount="indefinite" />
+            <animate attributeName="y2" values={`${y1};${y2};${y2}`} keyTimes="0;0.45;1" dur={`${duration}s`} begin={`${delay}s`} repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity" values="0;0.95;0" keyTimes="0;0.5;1" dur={`${duration}s`} begin={`${delay}s`} repeatCount="indefinite" />
           </line>
         ))}
 
-        {/* Inner circle */}
-        <circle cx="260" cy="260" r="88" fill="url(#core-grad)" stroke="rgba(44,143,255,0.3)" strokeWidth="1" />
-
-        {/* Center phone icon path */}
-        <g transform="translate(238,234)" fill="none">
-          <rect x="4" y="0" width="28" height="44" rx="5" stroke="#2C8FFF" strokeWidth="1.8" />
-          <rect x="10" y="4" width="16" height="28" rx="2" fill="rgba(44,143,255,0.15)" />
-          <circle cx="18" cy="38" r="3" fill="#2C8FFF" opacity="0.6" />
-          <line x1="8" y1="4" x2="8" y2="40" stroke="rgba(44,143,255,0.2)" strokeWidth="0.8" />
-        </g>
-
-        {/* Floating data dots */}
-        {[
-          { cx: 180, cy: 140, label: "99.4%", sub: "accuracy" },
-          { cx: 360, cy: 120, label: "10×", sub: "faster" },
-          { cx: 390, cy: 370, label: "100%", sub: "coverage" },
-        ].map((dot, i) => (
-          <g key={i}>
-            <circle cx={dot.cx} cy={dot.cy} r="28" fill="rgba(10,25,49,0.95)" stroke="rgba(44,143,255,0.35)" strokeWidth="1" />
-            <text x={dot.cx} y={dot.cy - 4} textAnchor="middle" fill="#EEF4FF" fontSize="10" fontWeight="800" fontFamily="system-ui">{dot.label}</text>
-            <text x={dot.cx} y={dot.cy + 10} textAnchor="middle" fill="#2C8FFF" fontSize="7" fontWeight="600" fontFamily="system-ui">{dot.sub}</text>
-          </g>
-        ))}
       </svg>
     </div>
   );
 }
 
+function VideoOrbitStats() {
+  const stats = [
+    { cx: 220, cy: 110, label: "99.4%", sub: "accuracy" },
+    { cx: 690, cy: 112, label: "10×", sub: "faster" },
+    { cx: 730, cy: 492, label: "100%", sub: "coverage" },
+  ];
+
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 900 600"
+      className="pointer-events-none absolute left-1/2 top-1/2 z-20 h-[180%] w-[150%] -translate-x-1/2 -translate-y-1/2 overflow-visible"
+    >
+      {stats.map((stat) => (
+        <g key={stat.label}>
+          <circle cx={stat.cx} cy={stat.cy} r="34" fill="rgba(10,25,49,0.96)" stroke="rgba(44,143,255,0.55)" strokeWidth="1.2" />
+          <text x={stat.cx} y={stat.cy - 5} textAnchor="middle" fill="#EEF4FF" fontSize="11" fontWeight="800" fontFamily="system-ui">{stat.label}</text>
+          <text x={stat.cx} y={stat.cy + 12} textAnchor="middle" fill="#2C8FFF" fontSize="9" fontWeight="700" fontFamily="system-ui">{stat.sub}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 export default function HeroSection() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const playerRef = useRef<YouTubePlayer | null>(null);
+  const unmuteAttemptedRef = useRef(false);
+  const checkingAudiblePlaybackRef = useRef(false);
+  const userActivatedRef = useRef(false);
+  const autoplayRecoveryAttemptedRef = useRef(false);
+  const readyCheckTimerRef = useRef<number | null>(null);
+  const recoveryTimerRef = useRef<number | null>(null);
+  const unmuteTimerRef = useRef<number | null>(null);
+  const verifyTimerRef = useRef<number | null>(null);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+
+  const clearAutomaticAudioTimers = useCallback(() => {
+    if (unmuteTimerRef.current !== null) {
+      window.clearTimeout(unmuteTimerRef.current);
+      unmuteTimerRef.current = null;
+    }
+    if (verifyTimerRef.current !== null) {
+      window.clearTimeout(verifyTimerRef.current);
+      verifyTimerRef.current = null;
+    }
+  }, []);
+
+  const enableSound = useCallback(() => {
+    const player = playerRef.current;
+
+    if (!player) return;
+
+    userActivatedRef.current = true;
+    checkingAudiblePlaybackRef.current = false;
+    clearAutomaticAudioTimers();
+    player.setVolume(heroVideoVolume);
+    player.unMute();
+    if (player.getPlayerState() !== youtubePlayingState) {
+      player.playVideo();
+    }
+    setIsVideoVisible(true);
+  }, [clearAutomaticAudioTimers]);
+
+  const recoverMutedPlayback = useCallback((target: YouTubePlayer) => {
+    if (
+      userActivatedRef.current ||
+      autoplayRecoveryAttemptedRef.current
+    ) {
+      return;
+    }
+
+    autoplayRecoveryAttemptedRef.current = true;
+    target.setVolume(heroVideoVolume);
+    target.mute();
+    if (target.getPlayerState() !== youtubePlayingState) {
+      target.playVideo();
+    }
+
+    recoveryTimerRef.current = window.setTimeout(() => {
+      if (target.getPlayerState() === youtubePlayingState) {
+        setIsVideoVisible(true);
+      }
+    }, 250);
+  }, []);
+
+  const handlePlaying = useCallback((target: YouTubePlayer) => {
+    if (unmuteAttemptedRef.current) {
+      if (!checkingAudiblePlaybackRef.current) {
+        setIsVideoVisible(true);
+      }
+      return;
+    }
+
+    unmuteAttemptedRef.current = true;
+    checkingAudiblePlaybackRef.current = true;
+    unmuteTimerRef.current = window.setTimeout(() => {
+      target.setVolume(heroVideoVolume);
+      target.unMute();
+
+      verifyTimerRef.current = window.setTimeout(() => {
+        if (userActivatedRef.current) return;
+
+        const audiblePlaybackSucceeded =
+          !target.isMuted() &&
+          target.getPlayerState() === youtubePlayingState;
+
+        checkingAudiblePlaybackRef.current = false;
+
+        if (audiblePlaybackSucceeded) {
+          setIsVideoVisible(true);
+          return;
+        }
+
+        recoverMutedPlayback(target);
+      }, 700);
+    }, 250);
+  }, [recoverMutedPlayback]);
+
+  const initialisePlayer = useCallback(() => {
+    const iframe = iframeRef.current;
+
+    if (!iframe || playerRef.current || !window.YT?.Player) return;
+
+    const player = new window.YT.Player(iframe, {
+      events: {
+        onReady: ({ target }) => {
+          playerRef.current = target;
+          target.setVolume(heroVideoVolume);
+          target.mute();
+          if (target.getPlayerState() !== youtubePlayingState) {
+            target.playVideo();
+          }
+
+          readyCheckTimerRef.current = window.setTimeout(() => {
+            if (target.getPlayerState() === youtubePlayingState) {
+              handlePlaying(target);
+            }
+          }, 150);
+        },
+        onStateChange: ({ target, data }) => {
+          if (data !== youtubePlayingState) return;
+          handlePlaying(target);
+        },
+        onAutoplayBlocked: ({ target }) => {
+          if (userActivatedRef.current) return;
+
+          unmuteAttemptedRef.current = true;
+          checkingAudiblePlaybackRef.current = false;
+          recoverMutedPlayback(target);
+        },
+      },
+    });
+
+    playerRef.current = player;
+  }, [handlePlaying, recoverMutedPlayback]);
+
+  useEffect(() => {
+    const unlockSound = () => {
+      if (!playerRef.current) return;
+
+      enableSound();
+      window.removeEventListener("pointerdown", unlockSound, true);
+      window.removeEventListener("keydown", unlockSound, true);
+    };
+
+    window.addEventListener("pointerdown", unlockSound, {
+      capture: true,
+    });
+    window.addEventListener("keydown", unlockSound, {
+      capture: true,
+    });
+
+    return () => {
+      window.removeEventListener("pointerdown", unlockSound, true);
+      window.removeEventListener("keydown", unlockSound, true);
+    };
+  }, [enableSound]);
+
+  useEffect(() => {
+    return () => {
+      clearAutomaticAudioTimers();
+      if (readyCheckTimerRef.current !== null) {
+        window.clearTimeout(readyCheckTimerRef.current);
+      }
+      if (recoveryTimerRef.current !== null) {
+        window.clearTimeout(recoveryTimerRef.current);
+      }
+      playerRef.current?.destroy();
+      playerRef.current = null;
+    };
+  }, [clearAutomaticAudioTimers]);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
+      <Script
+        id="youtube-iframe-api"
+        src="https://www.youtube.com/iframe_api"
+        strategy="afterInteractive"
+        onReady={initialisePlayer}
+      />
+
       {/* Background gradient — off-center, not centered */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -245,12 +465,52 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* RIGHT — circular equalizer graphic */}
+        {/* RIGHT — autoplaying product video */}
         <div
-          className="relative w-full aspect-square max-w-lg mx-auto"
-          style={{ filter: "drop-shadow(0 0 60px rgba(44,143,255,0.12))" }}
+          className="relative isolate mx-auto aspect-video w-full max-w-2xl overflow-visible lg:left-1/2 lg:w-[112%] lg:max-w-none lg:-translate-x-1/2 xl:w-[118%] 2xl:w-[125%]"
         >
-          <EqOrb />
+          <VideoSignalField />
+
+          <div
+            className="absolute inset-0 z-10 overflow-hidden rounded-2xl"
+            style={{
+              backgroundColor: "#020912",
+              backgroundImage:
+                "url('https://i.ytimg.com/vi/9v2IBq8PsFc/maxresdefault.jpg')",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              filter: "drop-shadow(0 20px 55px rgba(44,143,255,0.2))",
+              maskImage: videoFeatherMask,
+              maskComposite: "intersect",
+              WebkitMaskImage: videoFeatherMask,
+              WebkitMaskComposite: "source-in",
+            }}
+          >
+            <iframe
+              ref={iframeRef}
+              className={`pointer-events-none absolute left-1/2 top-1/2 h-[112%] w-[112%] -translate-x-1/2 -translate-y-1/2 border-0 transition-opacity duration-500 ${
+                isVideoVisible ? "opacity-100" : "opacity-0"
+              }`}
+              src={heroVideoUrl}
+              title="CallBlick product overview"
+              allow="autoplay; encrypted-media"
+              referrerPolicy="strict-origin-when-cross-origin"
+              tabIndex={-1}
+              onLoad={initialisePlayer}
+            />
+
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 z-20"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #020912 0%, rgba(2,9,18,0.96) 5%, rgba(2,9,18,0.55) 12%, transparent 24%, transparent 76%, rgba(2,9,18,0.55) 88%, rgba(2,9,18,0.96) 95%, #020912 100%)",
+              }}
+            />
+          </div>
+
+          <VideoOrbitStats />
         </div>
       </div>
 
