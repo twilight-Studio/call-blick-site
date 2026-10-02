@@ -96,7 +96,7 @@ export default function ContactPage() {
                 </a>
                 <a
                   className="inline-flex items-center gap-3 rounded-2xl px-5 py-4 text-sm font-bold"
-                  href="https://wa.me/4915231357432"
+                  href="https://wa.me/491631281632"
                   target="_blank"
                   rel="noreferrer"
                   style={{ background: "rgba(10,25,49,0.68)", border: "1px solid rgba(44,143,255,0.24)", color: "#EEF4FF" }}

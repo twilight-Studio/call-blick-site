@@ -19,7 +19,7 @@ function WhatsAppIcon() {
 export default function FloatingWhatsAppButton() {
   return (
     <a
-      href="https://wa.me/4915231357432"
+      href="https://wa.me/491631281632"
       target="_blank"
       rel="noreferrer"
       aria-label="Chat with CallBlick on WhatsApp"
