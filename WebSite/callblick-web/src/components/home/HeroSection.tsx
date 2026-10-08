@@ -43,7 +43,7 @@ declare global {
 }
 
 const heroVideoUrl =
-  "https://www.youtube-nocookie.com/embed/9v2IBq8PsFc?autoplay=1&mute=1&controls=0&loop=1&playlist=9v2IBq8PsFc&playsinline=1&disablekb=1&fs=0&rel=0&iv_load_policy=3&enablejsapi=1";
+  "https://www.youtube-nocookie.com/embed/hz358NwRWCw?autoplay=1&mute=1&controls=0&loop=1&playlist=hz358NwRWCw&playsinline=1&disablekb=1&fs=0&rel=0&iv_load_policy=3&enablejsapi=1";
 
 const heroVideoVolume = 25;
 const youtubePlayingState = 1;
@@ -476,7 +476,7 @@ export default function HeroSection() {
             style={{
               backgroundColor: "#020912",
               backgroundImage:
-                "url('https://i.ytimg.com/vi/9v2IBq8PsFc/maxresdefault.jpg')",
+                "url('https://i.ytimg.com/vi/hz358NwRWCw/maxresdefault.jpg')",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
