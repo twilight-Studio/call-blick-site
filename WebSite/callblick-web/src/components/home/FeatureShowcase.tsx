@@ -112,17 +112,17 @@ function RedFlagGraphic() {
       })}
 
       {/* Flag marker */}
-      <line x1="124" y1="30" x2="124" y2="110" stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3" />
-      <rect x="80" y="8" width="128" height="28" rx="8" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.4)" strokeWidth="1" />
-      <circle cx="94" cy="22" r="5" fill="rgba(239,68,68,0.3)" />
-      <text x="95" y="25" fill="#ef4444" fontSize="7" fontWeight="800" fontFamily="system-ui">!</text>
-      <text x="104" y="26" fill="#EEF4FF" fontSize="7.5" fontFamily="system-ui">Missing disclosure</text>
-      <text x="104" y="33" fill="#B3CFE5" fontSize="6.5" fontFamily="system-ui">00:42 · High severity</text>
+      <line x1="124" y1="40" x2="124" y2="110" stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3" />
+      <rect x="72" y="4" width="146" height="36" rx="8" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.4)" strokeWidth="1" />
+      <circle cx="88" cy="18" r="5" fill="rgba(239,68,68,0.3)" />
+      <text x="89" y="22" fill="#ef4444" fontSize="7" fontWeight="800" fontFamily="system-ui">!</text>
+      <text x="100" y="18" fill="#EEF4FF" fontSize="7.5" fontFamily="system-ui">Missing disclosure</text>
+      <text x="100" y="33" fill="#B3CFE5" fontSize="6.5" fontFamily="system-ui">00:42 · High severity</text>
 
       {/* Second flag */}
-      <line x1="178" y1="50" x2="178" y2="110" stroke="#eab308" strokeWidth="1" strokeDasharray="3 3" />
-      <rect x="152" y="34" width="98" height="22" rx="7" fill="rgba(234,179,8,0.1)" stroke="rgba(234,179,8,0.35)" strokeWidth="1" />
-      <text x="162" y="48" fill="#eab308" fontSize="7.5" fontFamily="system-ui">Guarantee language</text>
+      <line x1="178" y1="68" x2="178" y2="110" stroke="#eab308" strokeWidth="1" strokeDasharray="3 3" />
+      <rect x="150" y="46" width="110" height="22" rx="7" fill="rgba(234,179,8,0.1)" stroke="rgba(234,179,8,0.35)" strokeWidth="1" />
+      <text x="156" y="61" fill="#eab308" fontSize="7.5" fontFamily="system-ui">Guarantee language</text>
 
       {/* Tick marks on timeline */}
       {[0, 1, 2, 3, 4, 5].map(i => (
