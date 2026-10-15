@@ -1,26 +1,6 @@
-import FadeInSection from "@/components/FadeInSection";
+import type { Metadata } from "next";
+import Link from "next/link";
+import PageIntro from "@/components/PageIntro";
 
-export default function PrivacyPolicyPage() {
-  return (
-    <div className="min-h-screen pt-28 pb-32">
-      <div className="max-w-4xl mx-auto px-6">
-        <FadeInSection>
-          <p className="text-xs font-black uppercase tracking-[0.2em] mb-5" style={{ color: "#2C8FFF" }}>
-            Legal
-          </p>
-          <h1 className="font-black tracking-[-0.04em] leading-[0.95] mb-6" style={{ color: "#EEF4FF", fontSize: "clamp(44px,6vw,72px)" }}>
-            Privacy Policy
-          </h1>
-          <div className="rounded-3xl p-8 space-y-5" style={{ background: "rgba(10,25,49,0.68)", border: "1px solid rgba(44,143,255,0.16)" }}>
-            <p className="text-base leading-relaxed" style={{ color: "#B3CFE5" }}>
-              This legal page is a placeholder. The final legal policy will be added later.
-            </p>
-            <p className="text-base leading-relaxed" style={{ color: "#B3CFE5" }}>
-              Current product positioning: CallBlick offers privacy controls based on the selected plan, including GDPR-aligned EU-only processing options and zero data retention options.
-            </p>
-          </div>
-        </FadeInSection>
-      </div>
-    </div>
-  );
-}
+export const metadata: Metadata = { title: "Privacy notice", description: "Current privacy notice for the CallBlick marketing website." };
+export default function PrivacyPolicyPage() { return <><PageIntro title="Privacy notice"><p>This public notice is still being prepared. Until a complete notice and the applicable product terms are provided, do not use this page as the basis for uploading personal or sensitive call data.</p></PageIntro><section className="section-rule"><div className="page-shell max-w-4xl py-16 lg:py-24"><h2 className="display text-3xl">What this website currently collects</h2><p className="body-copy mt-4">The demo form sends the details you choose to provide to CallBlick so the team can respond. No analytics or advertising cookies are intentionally set by this website implementation.</p><h2 className="display mt-12 text-3xl">Questions or deletion requests</h2><p className="body-copy mt-4">Contact <a className="underline" href="mailto:info@callblick.com">info@callblick.com</a>. For product data and recorded-call processing, request the current plan-specific documentation before upload.</p><Link href="/data-privacy" className="text-link mt-6">Read the data-handling questions</Link></div></section></>; }

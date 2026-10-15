@@ -1,0 +1,71 @@
+name: Deploy CallBlick website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "WebSite/callblick-web/**"
+      - ".github/workflows/deploy-callblick-web.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: callblick-web-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: WebSite/callblick-web
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: WebSite/callblick-web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build production site
+        run: npm run build
+
+      - name: Configure deployment SSH key
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.CALLBLICK_DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.CALLBLICK_DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$HOME/.ssh/callblick_deploy"
+          chmod 600 "$HOME/.ssh/callblick_deploy"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Package release
+        run: |
+          tar \
+            --exclude='./node_modules' \
+            --exclude='./.next' \
+            --exclude='./out' \
+            -czf "/tmp/${GITHUB_SHA}.tar.gz" .
+
+      - name: Upload and activate release
+        env:
+          DEPLOY_HOST: ${{ secrets.CALLBLICK_DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.CALLBLICK_DEPLOY_USER }}
+        run: |
+          scp -i "$HOME/.ssh/callblick_deploy" \
+            "/tmp/${GITHUB_SHA}.tar.gz" \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:/var/www/callblick-web/incoming/${GITHUB_SHA}.tar.gz"
+          ssh -i "$HOME/.ssh/callblick_deploy" \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "/var/www/callblick-web/deploy.sh '${GITHUB_SHA}' 'incoming/${GITHUB_SHA}.tar.gz'"

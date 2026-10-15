@@ -1,40 +1,25 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CookieConsent from "@/components/CookieConsent";
-import FloatingWhatsAppButton from "@/components/home/FloatingWhatsAppButton";
+import ScrollMotion from "@/components/ScrollMotion";
+
+const newsreader = localFont({
+  src: "../../public/fonts/Newsreader-Variable.ttf",
+  variable: "--font-newsreader",
+  weight: "200 800",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "CallBlick — AI-Powered Call Intelligence",
-  description:
-    "Unlock deep insights from your calls with AI-powered transcription, QA scoring, and compliance monitoring.",
-  icons: {
-    icon: "/CallBlick-Logo.png",
-    apple: "/CallBlick-Logo.png",
-  },
-  openGraph: {
-    title: "CallBlick — AI-Powered Call Intelligence",
-    description:
-      "Unlock deep insights from your calls with AI-powered transcription, QA scoring, and compliance monitoring.",
-    type: "website",
-  },
+  metadataBase: new URL("https://www.callblick.com"),
+  title: { default: "CallBlick — Recorded call review", template: "%s — CallBlick" },
+  description: "Turn uploaded recorded calls into transcripts, QA answers, compliance findings, summaries, and a clear human-review workflow.",
+  icons: { icon: "/CallBlick-Logo.png", apple: "/CallBlick-Logo.png" },
+  openGraph: { title: "CallBlick — Recorded call review", description: "Make recorded calls easier to understand, review, and act on.", type: "website", url: "https://www.callblick.com" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" className="h-full">
-      <body className="min-h-full flex flex-col relative">
-        <Navbar />
-        <main className="flex-1 relative z-10">{children}</main>
-        <Footer />
-        <CookieConsent />
-        <FloatingWhatsAppButton />
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en" className={newsreader.variable} data-scroll-behavior="smooth"><body className="min-h-screen flex flex-col"><ScrollMotion /><Navbar /><main className="flex-1">{children}</main><Footer /></body></html>;
 }

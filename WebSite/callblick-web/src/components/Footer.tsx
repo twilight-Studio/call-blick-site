@@ -1,155 +1,16 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 
-const footerLinks = {
-  Product: [
-    { label: "Features", href: "/features" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Use Cases", href: "/use-cases" },
-    { label: "Data Privacy", href: "/data-privacy" },
-  ],
-  Company: [
-    { label: "About", href: "#" },
-    { label: "Blog", href: "/blog" },
-    { label: "Careers", href: "/careers" },
-    { label: "Contact", href: "/contact" },
-  ],
-  Resources: [
-    { label: "Status", href: "/status" },
-    { label: "Support", href: "/support" },
-  ],
-  Legal: [
-    { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Cookie Policy", href: "#" },
-    { label: "GDPR", href: "/data-privacy" },
-  ],
-};
+const groups = [
+  { name: "Product", links: [["Features", "/features"], ["Pricing", "/pricing"], ["Use cases", "/use-cases"], ["Data handling", "/data-privacy"]] },
+  { name: "Company", links: [["Contact", "/contact"], ["Careers", "/careers"], ["Reading", "/blog"]] },
+  { name: "Help", links: [["Support", "/support"], ["Status", "/status"], ["Privacy notice", "/privacy-policy"]] },
+] as const;
 
 export default function Footer() {
-  return (
-    <footer
-      className="relative z-10"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
-          {/* Brand column */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-block mb-5">
-              <Image
-                src="/CallBlick-Logo-Final.png"
-                alt="CallBlick"
-                width={160}
-                height={46}
-                className="block animate-logo-heartbeat"
-                style={{ objectFit: "contain" }}
-              />
-            </Link>
-            <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
-              Advanced intelligence for conversation analysis. Turn every call
-              into actionable insight.
-            </p>
-            <div className="mt-5 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-              <p
-                className="text-xs font-black uppercase tracking-[0.16em] mb-3"
-                style={{ color: "#2C8FFF" }}
-              >
-                Offices
-              </p>
-              <div className="flex flex-wrap gap-8">
-                <div>
-                  <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
-                    <span className="font-black" style={{ color: "#EEF4FF" }}>Registered office</span>
-                    <br />
-                    DesignsX
-                    <br />
-                    Kneippweg 4
-                    <br />
-                    88214 Ravensburg
-                    <br />
-                    Deutschland
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5" }}>
-                    <span className="font-black" style={{ color: "#EEF4FF" }}>Office</span>
-                    <br />
-                    298a Bath Road
-                    <br />
-                    Hounslow, TW4 7DN
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4
-                className="text-xs font-black uppercase tracking-widest mb-4"
-                style={{ color: "#EEF4FF" }}
-              >
-                {category}
-              </h4>
-              <ul className="flex flex-col gap-2.5">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm transition-colors duration-150"
-                      style={{ color: "#B3CFE5" }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.color = "#EEF4FF")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = "#B3CFE5")
-                      }
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom bar */}
-        <div
-          className="flex flex-col md:flex-row items-center justify-between gap-4 mt-16 pt-8"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-        >
-          <p className="text-sm" style={{ color: "#B3CFE5" }}>
-            © 2026 CallBlick. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6">
-            {[
-              { label: "Privacy Policy", href: "/privacy-policy" },
-              { label: "Terms of Service", href: "#" },
-              { label: "Status", href: "/status" },
-            ].map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-sm transition-colors duration-150"
-                style={{ color: "#B3CFE5" }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "#EEF4FF")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "#B3CFE5")
-                }
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+  return <footer className="section-rule bg-[var(--paper-warm)]"><div className="page-shell py-16 lg:py-20">
+    <div className="grid gap-12 md:grid-cols-[1.4fr_2fr]"><div><Link href="/" className="inline-flex" aria-label="CallBlick home"><Image src="/CallBlick-Logo-Final.png" alt="CallBlick" width={150} height={108} className="h-auto w-[150px] object-contain" /></Link><p className="body-copy mt-4 max-w-md text-sm">A review workspace for recorded customer calls, built around traceable findings and human judgement.</p><a href="mailto:info@callblick.com" className="text-link mt-5 text-sm">info@callblick.com</a></div>
+    <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">{groups.map((group) => <div key={group.name}><h2 className="mb-3 text-sm font-bold">{group.name}</h2><ul className="space-y-2">{group.links.map(([label, href]) => <li key={href}><Link href={href} className="text-sm text-[var(--ink-soft)] hover:text-[var(--ink)] hover:underline">{label}</Link></li>)}</ul></div>)}</div></div>
+    <div className="mt-14 flex flex-col gap-4 border-t border-[var(--rule)] pt-6 text-sm text-[var(--ink-soft)] sm:flex-row sm:items-end sm:justify-between"><p>© 2026 CallBlick. A product of DesignsX.</p><address className="not-italic sm:text-right">Kneippweg 4, 88214 Ravensburg, Germany<br />298a Bath Road, Hounslow, TW4 7DN</address></div>
+  </div></footer>;
 }

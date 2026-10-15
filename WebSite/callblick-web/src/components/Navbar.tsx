@@ -1,167 +1,55 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Features", href: "/features" },
+  { label: "Product", href: "/features" },
+  { label: "Use cases", href: "/use-cases" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Use Cases", href: "/use-cases" },
-  { label: "Data Privacy", href: "/data-privacy" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Data handling", href: "/data-privacy" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [compact, setCompact] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    let lastPosition = window.scrollY;
+    let ticking = false;
 
-  return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-200"
-      style={{
-        backdropFilter: scrolled ? "blur(24px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(24px)" : "none",
-        borderBottom: scrolled
-          ? "1px solid rgba(255,255,255,0.07)"
-          : "1px solid transparent",
-        background: scrolled ? "rgba(2,9,18,0.85)" : "transparent",
-        height: scrolled ? "60px" : "72px",
-      }}
-    >
-      <nav className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center flex-shrink-0">
-          <Image
-            src="/CallBlick-Logo.png"
-            alt="CallBlick"
-            width={60}
-            height={60}
-            className="block animate-logo-heartbeat"
-            style={{ objectFit: "contain" }}
-          />
-        </Link>
+    const updateNavigation = () => {
+      const position = window.scrollY;
+      const delta = position - lastPosition;
 
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-150"
-              style={{ color: "#B3CFE5" }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "#EEF4FF")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "#B3CFE5")
-              }
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+      setCompact(position > 24);
+      if (open || position < 24 || delta < -4) setHidden(false);
+      else if (delta > 4 && position > 112) setHidden(true);
 
-        {/* CTA buttons */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="https://app.callblick.com/sign-in"
-            className="px-5 py-2 rounded-2xl text-sm font-bold transition-all duration-150"
-            style={{
-              color: "#EEF4FF",
-              border: "1px solid rgba(255,255,255,0.12)",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = "rgba(255,255,255,0.05)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = "transparent")
-            }
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/contact"
-            className="px-5 py-2 rounded-2xl text-sm font-bold transition-all duration-150"
-            style={{
-              background: "#2C8FFF",
-              color: "#fff",
-              boxShadow: "0 0 24px rgba(44,143,255,0.35)",
-            }}
-            onMouseEnter={(e) =>
-            (e.currentTarget.style.boxShadow =
-              "0 0 40px rgba(44,143,255,0.55)")
-            }
-            onMouseLeave={(e) =>
-            (e.currentTarget.style.boxShadow =
-              "0 0 24px rgba(44,143,255,0.35)")
-            }
-          >
-            Apply for Demo
-          </Link>
-        </div>
+      if (Math.abs(delta) > 4) lastPosition = position;
+      ticking = false;
+    };
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden p-2 rounded-xl"
-          style={{ color: "#EEF4FF" }}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </nav>
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateNavigation);
+    };
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div
-          className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-2"
-          style={{
-            background: "rgba(2,9,18,0.97)",
-            borderBottom: "1px solid rgba(255,255,255,0.07)",
-            backdropFilter: "blur(24px)",
-          }}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="px-4 py-3 rounded-xl text-sm font-medium"
-              style={{ color: "#B3CFE5" }}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="flex flex-col gap-2 mt-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-            <Link
-              href="https://app.callblick.com/sign-in"
-              className="px-5 py-3 rounded-2xl text-sm font-bold text-center"
-              style={{ color: "#EEF4FF", border: "1px solid rgba(255,255,255,0.12)" }}
-              onClick={() => setMenuOpen(false)}
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/contact"
-              className="px-5 py-3 rounded-2xl text-sm font-bold text-center"
-              style={{ background: "#2C8FFF", color: "#fff" }}
-              onClick={() => setMenuOpen(false)}
-            >
-              Apply for Demo
-            </Link>
-          </div>
-        </div>
-      )}
-    </header>
-  );
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateNavigation();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [open]);
+
+  return <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[var(--rule)] bg-[rgba(2,9,18,0.94)] backdrop-blur-md" data-hidden={hidden && !open} data-compact={compact}>
+    <nav className="site-nav page-shell flex items-center justify-between" aria-label="Primary navigation">
+      <Link href="/" className="inline-flex h-12 w-14 items-center" onClick={() => setOpen(false)} aria-label="CallBlick home"><Image src="/CallBlick-Logo.png" alt="" width={52} height={46} className="site-logo w-auto object-contain" priority /></Link>
+      <div className="hidden items-center gap-1 md:flex">{navLinks.map((link) => <Link key={link.href} href={link.href} className="min-h-11 px-3.5 inline-flex items-center text-sm font-semibold text-[var(--ink-soft)] hover:text-[var(--ink)]">{link.label}</Link>)}</div>
+      <div className="hidden items-center gap-4 md:flex"><Link href="https://app.callblick.com/sign-in" className="text-sm font-semibold hover:underline">Sign in</Link><Link href="/contact" className="button-primary text-sm">Request a demo</Link></div>
+      <button type="button" className="min-h-11 min-w-11 inline-flex items-center justify-center md:hidden" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close navigation" : "Open navigation"}>{open ? <X size={22} /> : <Menu size={22} />}</button>
+    </nav>
+    {open && <div id="mobile-navigation" className="border-t border-[var(--rule)] bg-[var(--paper)] md:hidden"><div className="page-shell flex flex-col py-3">{navLinks.map((link) => <Link key={link.href} href={link.href} className="min-h-12 flex items-center border-b border-[var(--rule)] font-semibold" onClick={() => setOpen(false)}>{link.label}</Link>)}<Link href="https://app.callblick.com/sign-in" className="min-h-12 flex items-center font-semibold" onClick={() => setOpen(false)}>Sign in</Link><Link href="/contact" className="button-primary my-2" onClick={() => setOpen(false)}>Request a demo</Link></div></div>}
+  </header>;
 }

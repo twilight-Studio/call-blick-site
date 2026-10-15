@@ -1,19 +1,10 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
-import SocialProofBar from "@/components/home/SocialProofBar";
+import MetricsGrid from "@/components/home/MetricsGrid";
+import ProductVideo from "@/components/home/ProductVideo";
 import FeatureShowcase from "@/components/home/FeatureShowcase";
 import HowItWorks from "@/components/home/HowItWorks";
-import MetricsGrid from "@/components/home/MetricsGrid";
 import CTABanner from "@/components/home/CTABanner";
 
-export default function HomePage() {
-  return (
-    <>
-      <HeroSection />
-      <SocialProofBar />
-      <FeatureShowcase />
-      <HowItWorks />
-      <MetricsGrid />
-      <CTABanner />
-    </>
-  );
-}
+export const metadata: Metadata = { title: "Recorded call review", description: "Turn uploaded calls into traceable transcripts, QA answers, compliance findings, and a human-review workflow." };
+export default function Home() { return <><HeroSection /><ProductVideo /><MetricsGrid /><FeatureShowcase /><HowItWorks /><CTABanner /></>; }

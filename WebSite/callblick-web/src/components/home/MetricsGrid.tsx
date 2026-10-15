@@ -1,87 +1,9 @@
-import FadeInSection from "@/components/FadeInSection";
-import StatCounter from "@/components/StatCounter";
-
-const metrics = [
-  {
-    value: "60s",
-    label: "Fast Call Processing",
-    note: "An average call can be processed in as little as 60 seconds",
-    accent: "#2C8FFF",
-  },
-  {
-    value: "60",
-    label: "Points Per 60 Minutes",
-    note: "60 points or credits process 60 minutes of uploaded calls",
-    accent: "#7AB8FF",
-  },
-  {
-    value: "60",
-    label: "Free Starter Credits",
-    note: "New organizations can receive 60 free points/credits to process 60 call minutes",
-    accent: "#22c55e",
-  },
-  {
-    value: "0",
-    label: "Data Retention",
-    note: "Zero data retention options are available by plan",
-    accent: "#EEF4FF",
-  },
-];
+const principles = [
+  ["Evidence stays close", "Open a finding beside the words that triggered it instead of treating a score as the final answer."],
+  ["Rules fit the team", "Configure the questions, disclosures, and QA checks that matter to your own review process."],
+  ["People keep control", "Reviewers can confirm, correct, and add context before a finding becomes an operational decision."],
+] as const;
 
 export default function MetricsGrid() {
-  return (
-    <section className="py-24 relative z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Asymmetric layout: label left, numbers right */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-
-          {/* Left label col */}
-          <FadeInSection className="lg:col-span-2 lg:pt-4">
-            <p className="text-xs font-black uppercase tracking-[0.2em] mb-4" style={{ color: "#2C8FFF" }}>
-              By the numbers
-            </p>
-            <h2
-              className="font-black tracking-[-0.03em] mb-6"
-              style={{ color: "#EEF4FF", fontSize: "clamp(32px,4vw,48px)", lineHeight: "1.05" }}
-            >
-              Numbers that
-              <br />
-              speak for
-              <br />
-              themselves.
-            </h2>
-            <p className="text-sm leading-relaxed" style={{ color: "#B3CFE5", maxWidth: 340 }}>
-              Proven on real-time data across different enterprises, with pricing and privacy controls based on the selected plan.
-            </p>
-          </FadeInSection>
-
-          {/* Right stats 2×2 */}
-          <div className="lg:col-span-3 grid grid-cols-2 gap-4">
-            {metrics.map((m, i) => (
-              <FadeInSection key={i} delay={i * 80}>
-                <div
-                  className="rounded-2xl p-6 flex flex-col justify-between transition-all duration-300"
-                  style={{
-                    background: "rgba(10,25,49,0.7)",
-                    border: `1px solid ${m.accent}18`,
-                    minHeight: 140,
-                  }}
-                >
-                  {/* Accent line at top */}
-                  <div
-                    className="w-8 h-0.5 mb-4 rounded-full"
-                    style={{ background: m.accent }}
-                  />
-                  <StatCounter value={m.value} label={m.label} duration={1000 + i * 200} />
-                  <p className="text-xs mt-3" style={{ color: "rgba(179,207,229,0.72)" }}>
-                    {m.note}
-                  </p>
-                </div>
-              </FadeInSection>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="section-rule bg-[var(--paper-warm)]" data-reveal><div className="page-shell py-16 lg:py-20"><h2 className="display max-w-3xl text-4xl md:text-5xl">Trust comes from inspectable work.</h2><div className="mt-10 grid gap-px overflow-hidden border border-[var(--rule)] bg-[var(--rule)] md:grid-cols-3">{principles.map(([title, copy]) => <article key={title} className="bg-[var(--paper-warm)] p-6 md:p-8"><h3 className="text-lg font-bold">{title}</h3><p className="body-copy mt-3 text-sm">{copy}</p></article>)}</div></div></section>;
 }
