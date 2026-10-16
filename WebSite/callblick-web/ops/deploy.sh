@@ -12,6 +12,7 @@ readonly app_root="/var/www/callblick-web"
 readonly releases_dir="$app_root/releases"
 readonly release_dir="$releases_dir/$revision"
 readonly archive="$app_root/$2"
+readonly production_env="$app_root/shared/.env.production"
 
 if [[ "$archive" != "$app_root/incoming/$revision.tar.gz" || ! -f "$archive" ]]; then
   echo "Invalid or missing release archive" >&2
@@ -27,6 +28,11 @@ fi
 rm -f "$archive"
 
 cd "$release_dir"
+if [[ ! -f "$production_env" ]]; then
+  echo "Missing production environment file: $production_env" >&2
+  exit 78
+fi
+ln -sfn "$production_env" .env.production
 npm ci --no-audit --no-fund
 npm run build
 
