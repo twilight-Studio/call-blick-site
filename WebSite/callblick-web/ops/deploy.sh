@@ -13,6 +13,7 @@ readonly releases_dir="$app_root/releases"
 readonly release_dir="$releases_dir/$revision"
 readonly archive="$app_root/$2"
 readonly production_env="$app_root/shared/.env.production"
+readonly runtime_user="webdeploy"
 
 if [[ "$archive" != "$app_root/incoming/$revision.tar.gz" || ! -f "$archive" ]]; then
   echo "Invalid or missing release archive" >&2
@@ -40,8 +41,13 @@ ln -sfn "$release_dir" "$app_root/current.next"
 mv -Tf "$app_root/current.next" "$app_root/current"
 
 cd "$app_root/current"
-pm2 startOrReload ecosystem.config.cjs --env production --update-env
-pm2 save --force
+if [[ "$(id -un)" == "$runtime_user" ]]; then
+  pm2 startOrReload ecosystem.config.cjs --env production --update-env
+  pm2 save --force
+else
+  sudo -u "$runtime_user" -H pm2 startOrReload ecosystem.config.cjs --env production --update-env
+  sudo -u "$runtime_user" -H pm2 save --force
+fi
 
 curl --fail --silent --show-error \
   --retry 10 --retry-delay 2 --retry-connrefused \
