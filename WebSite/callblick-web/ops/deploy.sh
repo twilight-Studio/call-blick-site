@@ -41,13 +41,19 @@ ln -sfn "$release_dir" "$app_root/current.next"
 mv -Tf "$app_root/current.next" "$app_root/current"
 
 cd "$app_root/current"
-if [[ "$(id -un)" == "$runtime_user" ]]; then
-  pm2 startOrReload ecosystem.config.cjs --env production --update-env
-  pm2 save --force
-else
-  sudo -u "$runtime_user" -H pm2 startOrReload ecosystem.config.cjs --env production --update-env
-  sudo -u "$runtime_user" -H pm2 save --force
-fi
+run_as_runtime_user() {
+  if [[ "$(id -un)" == "$runtime_user" ]]; then
+    "$@"
+  else
+    sudo -u "$runtime_user" -H "$@"
+  fi
+}
+
+# PM2 retains the previous app working directory during startOrReload. Recreate
+# the process so it always starts from the release selected by the current link.
+run_as_runtime_user pm2 delete callblick-web >/dev/null 2>&1 || true
+run_as_runtime_user pm2 start ecosystem.config.cjs --env production --update-env
+run_as_runtime_user pm2 save --force
 
 curl --fail --silent --show-error \
   --retry 10 --retry-delay 2 --retry-connrefused \
