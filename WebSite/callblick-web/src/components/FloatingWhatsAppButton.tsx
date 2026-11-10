@@ -27,7 +27,7 @@ export default function FloatingWhatsAppButton() {
     <a
       aria-label="Chat with CallBlick on WhatsApp"
       className="fixed bottom-5 right-5 z-[60] inline-flex min-h-12 items-center gap-2 rounded-full border border-white/20 bg-[var(--blue)] px-4 py-3 text-sm font-bold text-[var(--paper)] shadow-[0_16px_40px_rgba(44,143,255,0.32)] transition duration-200 hover:-translate-y-0.5 hover:bg-[var(--blue-dark)] focus-visible:outline-offset-4 sm:bottom-6 sm:right-6"
-      href="https://wa.me/4915231357432"
+      href="https://wa.me/491631281632"
       rel="noopener noreferrer"
       target="_blank"
     >
