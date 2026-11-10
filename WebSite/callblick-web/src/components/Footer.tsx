@@ -4,7 +4,7 @@ import Image from "next/image";
 const groups = [
   { name: "Product", links: [["Features", "/features"], ["Pricing", "/pricing"], ["Use cases", "/use-cases"], ["Data handling", "/data-privacy"]] },
   { name: "Company", links: [["Contact", "/contact"], ["Careers", "/careers"], ["Reading", "/blog"]] },
-  { name: "Help", links: [["Support", "/support"], ["Status", "/status"], ["Privacy notice", "/privacy-policy"]] },
+  { name: "Help", links: [["Support", "/support"], ["Status", "/status"], ["Privacy & security", "/privacy-policy"]] },
 ] as const;
 
 export default function Footer() {

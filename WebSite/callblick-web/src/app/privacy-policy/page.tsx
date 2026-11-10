@@ -2,5 +2,92 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageIntro from "@/components/PageIntro";
 
-export const metadata: Metadata = { title: "Privacy notice", description: "Current privacy notice for the CallBlick marketing website." };
-export default function PrivacyPolicyPage() { return <><PageIntro title="Privacy notice"><p>This notice describes the current marketing-site implementation. Product processing terms are plan-specific, so do not use this page as the basis for uploading personal or sensitive call data.</p></PageIntro><section className="section-rule"><div className="page-shell grid gap-12 py-16 lg:grid-cols-[0.7fr_1.3fr] lg:py-24"><div><h2 className="display text-4xl">Information on this website.</h2><p className="body-copy mt-4">The site is designed to collect only the information needed to answer an enquiry and explain the product.</p></div><div className="border-t border-[var(--rule-strong)]"><article className="border-b border-[var(--rule)] py-6"><h3 className="text-lg font-bold">Demo requests</h3><p className="body-copy mt-3 text-sm">The form sends the name, work email, company, approximate monthly call hours, and use-case details you choose to provide so the team can respond.</p></article><article className="border-b border-[var(--rule)] py-6"><h3 className="text-lg font-bold">Email correspondence</h3><p className="body-copy mt-3 text-sm">If you contact CallBlick by email, the team receives the address, message, and any information you include. Do not send recordings, credentials, or sensitive personal data in an initial message.</p></article><article className="border-b border-[var(--rule)] py-6"><h3 className="text-lg font-bold">Embedded media and external links</h3><p className="body-copy mt-3 text-sm">The home page embeds a YouTube video using the privacy-enhanced domain. The Reading page links to third-party websites. Those services apply their own privacy terms when you interact with them.</p></article><article className="border-b border-[var(--rule)] py-6"><h3 className="text-lg font-bold">Analytics and advertising</h3><p className="body-copy mt-3 text-sm">No analytics or advertising-cookie integration is intentionally implemented in the current website source.</p></article></div></div></section><section className="section-rule bg-[var(--paper-warm)]"><div className="page-shell max-w-4xl py-16 lg:py-20"><h2 className="display text-3xl">Product data is a separate decision.</h2><p className="body-copy mt-4">Recorded-call processing can involve different regions, providers, retention settings, and contractual terms. Request the current plan-specific documentation before upload.</p><div className="mt-7 flex flex-wrap gap-4"><Link href="/data-privacy" className="button-primary">Review data-handling questions</Link><a href="mailto:info@callblick.com?subject=Privacy%20request" className="button-secondary">Privacy or deletion request</a></div></div></section></>; }
+export const metadata: Metadata = {
+  title: "Privacy and data security",
+  description:
+    "How CallBlick keeps customer data secure through GDPR-aligned handling, EU infrastructure, controlled access, and plan-specific AI processing options.",
+};
+
+const protections = [
+  {
+    title: "GDPR-aligned handling",
+    copy: "CallBlick handles personal and sensitive information in line with GDPR principles, with clear controls for access, retention, and deletion.",
+  },
+  {
+    title: "EU-hosted infrastructure",
+    copy: "Customer data and core processing remain on infrastructure located in the European Union.",
+  },
+  {
+    title: "Controlled workspace access",
+    copy: "Recordings, transcripts, and results are available only to authorised users in your organisation.",
+  },
+  {
+    title: "No third-party sharing",
+    copy: "CallBlick does not disclose customer recordings, transcripts, analysis, or sensitive information to third parties.",
+  },
+  {
+    title: "Zero-retention AI options",
+    copy: "Depending on your selected setup, AI models can process content without retaining it after the request is completed.",
+  },
+  {
+    title: "EU-based AI options",
+    copy: "Depending on your selected setup, AI model processing can remain within the European Union.",
+  },
+] as const;
+
+export default function PrivacyPolicyPage() {
+  return (
+    <>
+      <PageIntro title="Your data stays secure.">
+        <p>
+          CallBlick protects personal and sensitive information throughout upload,
+          processing, review, and deletion. Security is built into the service,
+          with additional processing options available for different requirements.
+        </p>
+      </PageIntro>
+
+      <section className="section-rule">
+        <div className="page-shell py-16 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.65fr_1.35fr]">
+            <div>
+              <h2 className="display text-4xl">How we protect your information.</h2>
+              <p className="body-copy mt-4">
+                These safeguards work in the background, so your team can keep its
+                normal review workflow.
+              </p>
+            </div>
+            <div className="grid gap-px overflow-hidden border border-[var(--rule)] bg-[var(--rule)] md:grid-cols-2">
+              {protections.map(({ title, copy }) => (
+                <article key={title} className="bg-[var(--paper)] p-6 md:p-8">
+                  <h3 className="text-lg font-bold">{title}</h3>
+                  <p className="body-copy mt-3 text-sm leading-6">{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-rule bg-[var(--paper-warm)]">
+        <div className="page-shell py-16 lg:py-20">
+          <h2 className="display max-w-3xl text-4xl">
+            Choose the right security setup.
+          </h2>
+          <p className="body-copy mt-4 max-w-3xl">
+            Zero-retention and EU-based AI model options depend on the selected
+            configuration. If your organisation has specific security, retention,
+            or processing requirements, our team is available to discuss them.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-4">
+            <Link href="/contact" className="button-primary">
+              Discuss your requirements
+            </Link>
+            <Link href="/data-privacy" className="button-secondary">
+              Review data handling
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
