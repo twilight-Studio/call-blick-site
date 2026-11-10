@@ -67,10 +67,13 @@ body::-webkit-scrollbar-thumb { background: #33516f; border: 3px solid var(--pap
 .site-header[data-compact="true"] .site-nav { height: 56px; }
 .site-brand { flex-shrink: 0; text-decoration: none; }
 .site-logo { height: 32px; transition: height 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease; }
-.site-wordmark { margin-top: -0.15rem; color: var(--ink); font-size: 0.8rem; font-weight: 800; letter-spacing: -0.045em; line-height: 1; transition: font-size 420ms cubic-bezier(0.22, 1, 0.36, 1); }
+.site-brand-line { display: inline-flex; align-items: baseline; margin-top: -0.15rem; line-height: 1; }
+.site-wordmark { color: var(--ink); font-size: 0.8rem; font-weight: 800; letter-spacing: -0.045em; line-height: 1; transition: font-size 420ms cubic-bezier(0.22, 1, 0.36, 1); }
 .site-wordmark span { color: #08a5e5; }
+.site-beta { margin-left: 0.38rem; border-left: 1px solid var(--rule-strong); padding-left: 0.38rem; color: var(--blue-dark); font-size: 0.52rem; font-weight: 800; letter-spacing: 0.14em; line-height: 1; text-transform: uppercase; transition: font-size 420ms cubic-bezier(0.22, 1, 0.36, 1); }
 .site-header[data-compact="true"] .site-logo { height: 27px; }
 .site-header[data-compact="true"] .site-wordmark { font-size: 0.72rem; }
+.site-header[data-compact="true"] .site-beta { font-size: 0.46rem; }
 .hero-background-logo { opacity: 0.16; filter: blur(9px); }
 .hero-section, .hero-shell { min-height: 100vh; min-height: 100svh; }
 .hero-shell { padding-block: clamp(5rem, 11vh, 9rem); }
