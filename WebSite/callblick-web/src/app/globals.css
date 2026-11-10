@@ -46,6 +46,7 @@ body::-webkit-scrollbar-thumb { background: #33516f; border: 3px solid var(--pap
 .button-primary:hover { background: var(--blue-dark); color: var(--paper); transform: translateY(-1px); }
 .button-secondary { border: 1px solid var(--rule-strong); border-radius: 9px; padding: 0.7rem 1rem; background: var(--surface); color: var(--ink); }
 .button-secondary:hover { border-color: var(--ink-soft); background: var(--paper-warm); }
+.nav-action-block { height: 44px; padding-block: 0; white-space: nowrap; }
 .text-link { color: var(--blue-dark); text-decoration: underline; text-decoration-color: transparent; }
 .text-link:hover { text-decoration-color: currentColor; }
 .page-intro { padding-block: clamp(8rem, 14vw, 11rem) clamp(4.5rem, 8vw, 7rem); }
@@ -69,7 +70,6 @@ body::-webkit-scrollbar-thumb { background: #33516f; border: 3px solid var(--pap
 .site-logo { height: 32px; transition: height 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease; }
 .site-wordmark { margin-top: -0.15rem; color: var(--ink); font-size: 0.8rem; font-weight: 800; letter-spacing: -0.045em; line-height: 1; transition: font-size 420ms cubic-bezier(0.22, 1, 0.36, 1); }
 .site-wordmark span { color: #08a5e5; }
-.beta-tag { border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0.18rem 0.45rem; background: var(--blue-soft); color: var(--blue-dark); font-size: 0.56rem; font-weight: 800; letter-spacing: 0.12em; line-height: 1; text-transform: uppercase; text-decoration: none; }
 .site-header[data-compact="true"] .site-logo { height: 27px; }
 .site-header[data-compact="true"] .site-wordmark { font-size: 0.72rem; }
 .hero-background-logo { opacity: 0.16; filter: blur(9px); }
