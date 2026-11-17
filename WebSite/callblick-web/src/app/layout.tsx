@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollMotion from "@/components/ScrollMotion";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
+import CookieBanner from "@/components/CookieBanner";
 
 const newsreader = localFont({
   src: "../../public/fonts/Newsreader-Variable.ttf",
@@ -22,5 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className={newsreader.variable} data-scroll-behavior="smooth"><body className="min-h-screen flex flex-col"><ScrollMotion /><Navbar /><main className="flex-1">{children}</main><Footer /><FloatingWhatsAppButton /></body></html>;
+  return <html lang="en" className={newsreader.variable} data-scroll-behavior="smooth"><body className="min-h-screen flex flex-col"><ScrollMotion /><Navbar /><main className="flex-1">{children}</main><Footer /><FloatingWhatsAppButton /><CookieBanner /></body></html>;
 }
